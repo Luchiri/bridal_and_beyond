@@ -1,0 +1,1097 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Bride Dresses{% endblock %}
+
+{% block content %}
+<style>
+    /* ===== BRIDE DRESSES PAGE STYLING ===== */
+
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Poppins:wght@300;400;500&display=swap');
+
+body {
+    background-color: #FFFDF8;
+    font-family: 'Poppins', sans-serif;
+}
+
+.container {
+    max-width: 1400px;
+}
+
+/* Page Title */
+h2.text-center {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    font-size: 2.8rem;
+    color: #4E3B31 !important;
+    letter-spacing: 1px;
+    margin-bottom: 3rem !important;
+    position: relative;
+    padding-bottom: 1rem;
+}
+
+h2.text-center::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 3px;
+    background: linear-gradient(90deg, #A56B6F, #4E3B31);
+    border-radius: 2px;
+}
+
+/* Search Bar */
+.search-bar {
+    margin-bottom: 3rem !important;
+}
+
+.search-bar .form-control {
+    border: 2px solid #F3E9E3;
+    border-radius: 50px;
+    padding: 1rem 1.5rem;
+    font-size: 1rem;
+    color: #4E3B31;
+    background-color: #FFFDF8;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(165, 107, 111, 0.08);
+}
+
+.search-bar .form-control:focus {
+    border-color: #A56B6F;
+    box-shadow: 0 6px 25px rgba(165, 107, 111, 0.15);
+    outline: none;
+}
+
+.search-bar .form-control::placeholder {
+    color: #A56B6F;
+    opacity: 0.6;
+}
+
+/* MASONRY GRID - 4 COLUMNS */
+.row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: masonry;
+    gap: 1.5rem;
+}
+
+/* Make columns masonry */
+.col {
+    break-inside: avoid;
+}
+
+/* 2 COLUMNS ON TABLETS */
+@media (max-width: 992px) {
+    .row {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* 2 COLUMNS ON MOBILE (NOT 1) */
+@media (max-width: 576px) {
+    .row {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+    }
+}
+
+.col {
+    width: 100% !important;
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+/* Dress Card */
+.dress-card {
+    border: none;
+    border-radius: 20px;
+    overflow: hidden;
+    position: relative;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    box-shadow: 0 8px 25px rgba(78, 59, 49, 0.08);
+    background-color: #FFFDF8;
+}
+
+.dress-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(to bottom, transparent 50%, rgba(78, 59, 49, 0.7) 100%);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    z-index: 1;
+    pointer-events: none;
+}
+
+.dress-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 40px rgba(165, 107, 111, 0.25);
+}
+
+.dress-card:hover::before {
+    opacity: 1;
+}
+
+/* Card Image - Fit Perfectly */
+.dress-card .card-img-top {
+    width: 100%;
+    height: auto;
+    display: block;
+    transition: transform 0.5s ease;
+}
+
+.dress-card:hover .card-img-top {
+    transform: scale(1.08);
+}
+
+
+/* Save Button */
+.save-btn {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: linear-gradient(135deg, #A56B6F, #8d5a5e);
+    color: #FFFDF8;
+    padding: 10px 24px;
+    border-radius: 50px;
+    font-weight: 500;
+    font-size: 0.95rem;
+    cursor: pointer;
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: all 0.3s ease;
+    z-index: 2;
+    box-shadow: 0 4px 15px rgba(165, 107, 111, 0.4);
+    letter-spacing: 0.5px;
+}
+
+.dress-card:hover .save-btn {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.save-btn:hover {
+    background: linear-gradient(135deg, #8d5a5e, #A56B6F);
+    box-shadow: 0 6px 20px rgba(165, 107, 111, 0.6);
+    transform: scale(1.05);
+}
+
+.save-btn:active {
+    transform: scale(0.98);
+}
+
+/* Tag Data */
+.tag-data {
+    position: absolute;
+    bottom: 15px;
+    left: 15px;
+    right: 15px;
+    color: #FFFDF8;
+    font-size: 0.85rem;
+    font-weight: 400;
+    margin: 0;
+    padding: 8px 12px;
+    background: rgba(78, 59, 49, 0.85);
+    backdrop-filter: blur(10px);
+    border-radius: 12px;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: all 0.4s ease 0.1s;
+    z-index: 2;
+    line-height: 1.4;
+}
+
+.dress-card:hover .tag-data {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Responsive Adjustments */
+@media (max-width: 767px) {
+    h2.text-center {
+        font-size: 2rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .search-bar {
+        width: 95% !important;
+    }
+    
+    h2.text-center {
+        font-size: 1.75rem;
+    }
+    
+    .save-btn {
+        padding: 8px 18px;
+        font-size: 0.85rem;
+    }
+}
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: #F3E9E3;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #A56B6F;
+    border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #8d5a5e;
+}
+</style>
+
+<div class="container py-5">
+
+    <h2 class="mb-4 text-center" style="color:#4E3B31;">Bride Dresses</h2>
+
+    <!-- SEARCH BAR -->
+    <form method="GET" class="search-bar mb-4 w-75 mx-auto">
+        <input type="text" name="q" class="form-control" placeholder="Search bride dresses (e.g. mermaid, ball gown, boho)">
+    </form>
+
+    <!-- DRESSES GRID -->
+        <div class="row">
+
+        <!-- 1 -->
+        <div class="col">
+            <div class="card dress-card">
+                <img src="{% static 'images/mermaidbride1.jpg' %}" class="card-img-top" alt="Bride Dress 1">
+                <div class="save-btn">Save</div>
+                <p class="tag-data">mermaid elegant fitted</p>
+            </div>
+        </div>
+
+        <!-- 2 -->
+        <div class="col">
+            <div class="card dress-card">
+                <img src="{% static 'images/ballbride1.jpg' %}" class="card-img-top" alt="Bride Dress 2">
+                <div class="save-btn">Save</div>
+                <p class="tag-data">ball gown princess luxury</p>
+            </div>
+        </div>
+
+        <!-- 3 -->
+        <div class="col">
+            <div class="card dress-card">
+                <img src="{% static 'images/alinebride1.jpg' %}" class="card-img-top" alt="Bride Dress 3">
+                <div class="save-btn">Save</div>
+                <p class="tag-data">a-line simple classic</p>
+            </div>
+        </div>
+
+        <!-- 4 -->
+        <div class="col">
+            <div class="card dress-card">
+                <img src="{% static 'images/sheathbride1.jpg' %}" class="card-img-top" alt="Bride Dress 4">
+                <div class="save-btn">Save</div>
+                <p class="tag-data">sheath modern minimal</p>
+            </div>
+        </div>
+
+        <!-- 5 -->
+        <div class="col">
+            <div class="card dress-card">
+                <img src="{% static 'images/bohobride1.jpg' %}" class="card-img-top" alt="Bride Dress 5">
+                <div class="save-btn">Save</div>
+                <p class="tag-data">boho lace earthy</p>
+            </div>
+        </div>
+
+        <!-- 6 -->
+        <div class="col">
+            <div class="card dress-card">
+                <img src="{% static 'images/empirebride1.jpg' %}" class="card-img-top" alt="Bride Dress 6">
+                <div class="save-btn">Save</div>
+                <p class="tag-data">empire waist flowy</p>
+            </div>
+        </div>
+
+        <!-- 1 -->
+        <div class="col">
+            <div class="card dress-card">
+                <img src="{% static 'images/mermaidbride2.jpg' %}" class="card-img-top" alt="Bride Dress 1">
+                <div class="save-btn">Save</div>
+                <p class="tag-data">Mermaid strapless glamour</p>
+            </div>
+        </div>
+
+        <!-- 2 -->
+        <div class="col">
+            <div class="card dress-card">
+                <img src="{% static 'images/ballbride2.jpg' %}" class="card-img-top" alt="Bride Dress 2">
+                <div class="save-btn">Save</div>
+                <p class="tag-data">Ball gown strapless elegance</p>
+            </div>
+        </div>
+
+        <!-- 3 -->
+        <div class="col">
+            <div class="card dress-card">
+                <img src="{% static 'images/alinebride2.jpg' %}" class="card-img-top" alt="Bride Dress 3">
+                <div class="save-btn">Save</div>
+                <p class="tag-data">A-line strapless elegance</p>
+            </div>
+        </div>
+
+        <!-- 4 -->
+        <div class="col">
+            <div class="card dress-card">
+                <img src="{% static 'images/sheathbride2.jpg' %}" class="card-img-top" alt="Bride Dress 4">
+                <div class="save-btn">Save</div>
+                <p class="tag-data">Sheath sleek elegance</p>
+            </div>
+        </div>
+
+        <!-- 5 -->
+        <div class="col">
+            <div class="card dress-card">
+                <img src="{% static 'images/bohobride2.jpg' %}" class="card-img-top" alt="Bride Dress 5">
+                <div class="save-btn">Save</div>
+                <p class="tag-data">Boho flowy elegance</p>
+            </div>
+        </div>
+
+        <!-- 6 -->
+        <div class="col">
+            <div class="card dress-card">
+                <img src="{% static 'images/empirebride2.jpg' %}" class="card-img-top" alt="Bride Dress 6">
+                <div class="save-btn">Save</div>
+                <p class="tag-data">Empire waist elegant drape</p>
+            </div>
+        </div>
+
+        <!-- 1 -->
+        <div class="col">
+            <div class="card dress-card">
+                <img src="{% static 'images/mermaidbride3.jpg' %}" class="card-img-top" alt="Bride Dress 1">
+                <div class="save-btn">Save</div>
+                <p class="tag-data">Mermaid sequined allure</p>
+            </div>
+        </div>
+
+        <!-- 2 -->
+        <div class="col">
+            <div class="card dress-card">
+                <img src="{% static 'images/ballbride3.jpg' %}" class="card-img-top" alt="Bride Dress 2">
+                <div class="save-btn">Save</div>
+                <p class="tag-data">Ball gown lace enchantment</p>
+            </div>
+        </div>
+
+        <!-- 3 -->
+        <div class="col">
+            <div class="card dress-card">
+                <img src="{% static 'images/alinebride3.jpg' %}" class="card-img-top" alt="Bride Dress 3">
+                <div class="save-btn">Save</div>
+                <p class="tag-data">A-line lace sophistication</p>
+            </div>
+        </div>
+
+        <!-- 4 -->
+        <div class="col">
+            <div class="card dress-card">
+                <img src="{% static 'images/sheathbride3.jpg' %}" class="card-img-top" alt="Bride Dress 4">
+                <div class="save-btn">Save</div>
+                <p class="tag-data">Sheath fitted sophistication</p>
+            </div>
+        </div>
+
+        <!-- 5 -->
+        <div class="col">
+            <div class="card dress-card">
+                <img src="{% static 'images/bohobride3.jpg' %}" class="card-img-top" alt="Bride Dress 5">
+                <div class="save-btn">Save</div>
+                <p class="tag-data">Boho floral charm</p>
+            </div>
+        </div>
+
+        <!-- 6 -->
+        <div class="col">
+            <div class="card dress-card">
+                <img src="{% static 'images/empirebride3.jpg' %}" class="card-img-top" alt="Bride Dress 6">
+                <div class="save-btn">Save</div>
+                <p class="tag-data">Empire waist flowing grace</p>
+            </div>
+        </div>
+
+        <!-- 1 -->
+        <div class="col">
+            <div class="card dress-card">
+                <img src="{% static 'images/mermaidbride4.jpg' %}" class="card-img-top" alt="Bride Dress 1">
+                <div class="save-btn">Save</div>
+                <p class="tag-data">Mermaid off-shoulder chic</p>
+            </div>
+        </div>
+
+        <!-- 2 -->
+        <div class="col">
+            <div class="card dress-card">
+                <img src="{% static 'images/ballbride4.jpg' %}" class="card-img-top" alt="Bride Dress 2">
+                <div class="save-btn">Save</div>
+                <p class="tag-data">Ball gown tulle sophistication</p>
+            </div>
+        </div>
+
+        <!-- 3 -->
+        <div class="col">
+            <div class="card dress-card">
+                <img src="{% static 'images/alinebride4.jpg' %}" class="card-img-top" alt="Bride Dress 3">
+                <div class="save-btn">Save</div>
+                <p class="tag-data">A-line tulle charm</p>
+            </div>
+        </div>
+
+        <!-- 4 -->
+        <div class="col">
+            <div class="card dress-card">
+                <img src="{% static 'images/sheathbride4.jpg' %}" class="card-img-top" alt="Bride Dress 4">
+                <div class="save-btn">Save</div>
+                <p class="tag-data">Sheath minimalist chic</p>
+            </div>
+        </div>
+
+        <!-- 5 -->
+        <div class="col">
+            <div class="card dress-card">
+                <img src="{% static 'images/bohobride4.jpg' %}" class="card-img-top" alt="Bride Dress 5">
+                <div class="save-btn">Save</div>
+                <p class="tag-data">Boho vintage chic</p>
+            </div>
+        </div>
+
+        <!-- 6 -->
+        <div class="col">
+            <div class="card dress-card">
+                <img src="{% static 'images/empirebride4.jpg' %}" class="card-img-top" alt="Bride Dress 6">
+                <div class="save-btn">Save</div>
+                <p class="tag-data">Empire waist lace charm</p>
+            </div>
+        </div>
+
+        <!-- 1 -->
+        <div class="col">
+            <div class="card dress-card">
+                <img src="{% static 'images/mermaidbride5.jpg' %}" class="card-img-top" alt="Bride Dress 1">
+                <div class="save-btn">Save</div>
+                <p class="tag-data">mermaid elegant fitted</p>
+            </div>
+        </div>
+
+        <!-- 2 -->
+        <div class="col">
+            <div class="card dress-card">
+                <img src="{% static 'images/ballbride5.jpg' %}" class="card-img-top" alt="Bride Dress 2">
+                <div class="save-btn">Save</div>
+                <p class="tag-data">ball gown princess luxury</p>
+            </div>
+        </div>
+
+        <!-- 3 -->
+        <div class="col">
+            <div class="card dress-card">
+                <img src="{% static 'images/alinebride5.jpg' %}" class="card-img-top" alt="Bride Dress 3">
+                <div class="save-btn">Save</div>
+                <p class="tag-data">a-line simple classic</p>
+            </div>
+        </div>
+
+        <!-- 4 -->
+        <div class="col">
+            <div class="card dress-card">
+                <img src="{% static 'images/sheathbride5.jpg' %}" class="card-img-top" alt="Bride Dress 4">
+                <div class="save-btn">Save</div>
+                <p class="tag-data">sheath modern minimal</p>
+            </div>
+        </div>
+
+        <!-- 5 -->
+        <div class="col">
+            <div class="card dress-card">
+                <img src="{% static 'images/bohobride5.jpg' %}" class="card-img-top" alt="Bride Dress 5">
+                <div class="save-btn">Save</div>
+                <p class="tag-data">boho lace earthy</p>
+            </div>
+        </div>
+
+        <!-- 6 -->
+        <div class="col">
+            <div class="card dress-card">
+                <img src="{% static 'images/empirebride5.jpg' %}" class="card-img-top" alt="Bride Dress 6">
+                <div class="save-btn">Save</div>
+                <p class="tag-data">empire waist flowy</p>
+            </div>
+        </div>
+
+        <!-- 1 -->
+        <div class="col">
+            <div class="card dress-card">
+                <img src="{% static 'images/mermaidbride6.jpg' %}" class="card-img-top" alt="Bride Dress 1">
+                <div class="save-btn">Save</div>
+                <p class="tag-data">mermaid elegant fitted</p>
+            </div>
+        </div>
+
+        <!-- 2 -->
+        <div class="col">
+            <div class="card dress-card">
+                <img src="{% static 'images/ballbride6.jpg' %}" class="card-img-top" alt="Bride Dress 2">
+                <div class="save-btn">Save</div>
+                <p class="tag-data">ball gown princess luxury</p>
+            </div>
+        </div>
+
+        <!-- 3 -->
+        <div class="col">
+            <div class="card dress-card">
+                <img src="{% static 'images/alinebride6.jpg' %}" class="card-img-top" alt="Bride Dress 3">
+                <div class="save-btn">Save</div>
+                <p class="tag-data">a-line simple classic</p>
+            </div>
+        </div>
+
+        <!-- 4 -->
+        <div class="col">
+            <div class="card dress-card">
+                <img src="{% static 'images/sheathbride6.jpg' %}" class="card-img-top" alt="Bride Dress 4">
+                <div class="save-btn">Save</div>
+                <p class="tag-data">sheath modern minimal</p>
+            </div>
+        </div>
+
+        <!-- 5 -->
+        <div class="col">
+            <div class="card dress-card">
+                <img src="{% static 'images/bohobride6.jpg' %}" class="card-img-top" alt="Bride Dress 5">
+                <div class="save-btn">Save</div>
+                <p class="tag-data">boho lace earthy</p>
+            </div>
+        </div>
+
+        <!-- 6 -->
+        <div class="col">
+            <div class="card dress-card">
+                <img src="{% static 'images/empirebride6.jpg' %}" class="card-img-top" alt="Bride Dress 6">
+                <div class="save-btn">Save</div>
+                <p class="tag-data">empire waist flowy</p>
+            </div>
+        </div>
+
+        <!-- 1 -->
+        <div class="col">
+            <div class="card dress-card">
+                <img src="{% static 'images/mermaidbride7.jpg' %}" class="card-img-top" alt="Bride Dress 1">
+                <div class="save-btn">Save</div>
+                <p class="tag-data">mermaid elegant fitted</p>
+            </div>
+        </div>
+
+        <!-- 2 -->
+        <div class="col">
+            <div class="card dress-card">
+                <img src="{% static 'images/ballbride7.jpg' %}" class="card-img-top" alt="Bride Dress 2">
+                <div class="save-btn">Save</div>
+                <p class="tag-data">ball gown princess luxury</p>
+            </div>
+        </div>
+
+        <!-- 3 -->
+        <div class="col">
+            <div class="card dress-card">
+                <img src="{% static 'images/alinebride7.jpg' %}" class="card-img-top" alt="Bride Dress 3">
+                <div class="save-btn">Save</div>
+                <p class="tag-data">a-line simple classic</p>
+            </div>
+        </div>
+
+        <!-- 4 -->
+        <div class="col">
+            <div class="card dress-card">
+                <img src="{% static 'images/sheathbride7.jpg' %}" class="card-img-top" alt="Bride Dress 4">
+                <div class="save-btn">Save</div>
+                <p class="tag-data">sheath modern minimal</p>
+            </div>
+        </div>
+
+        <!-- 5 -->
+        <div class="col">
+            <div class="card dress-card">
+                <img src="{% static 'images/bohobride7.jpg' %}" class="card-img-top" alt="Bride Dress 5">
+                <div class="save-btn">Save</div>
+                <p class="tag-data">boho lace earthy</p>
+            </div>
+        </div>
+
+        <!-- 6 -->
+        <div class="col">
+            <div class="card dress-card">
+                <img src="{% static 'images/empirebride7.jpg' %}" class="card-img-top" alt="Bride Dress 6">
+                <div class="save-btn">Save</div>
+                <p class="tag-data">empire waist flowy</p>
+            </div>
+        </div>
+
+        <!-- 1 -->
+        <div class="col">
+            <div class="card dress-card">
+                <img src="{% static 'images/mermaidbride8.jpg' %}" class="card-img-top" alt="Bride Dress 1">
+                <div class="save-btn">Save</div>
+                <p class="tag-data">mermaid elegant fitted</p>
+            </div>
+        </div>
+
+        <!-- 2 -->
+        <div class="col">
+            <div class="card dress-card">
+                <img src="{% static 'images/ballbride8.jpg' %}" class="card-img-top" alt="Bride Dress 2">
+                <div class="save-btn">Save</div>
+                <p class="tag-data">ball gown princess luxury</p>
+            </div>
+        </div>
+
+        <!-- 3 -->
+        <div class="col">
+            <div class="card dress-card">
+                <img src="{% static 'images/alinebride8.jpg' %}" class="card-img-top" alt="Bride Dress 3">
+                <div class="save-btn">Save</div>
+                <p class="tag-data">a-line simple classic</p>
+            </div>
+        </div>
+
+        <!-- 4 -->
+        <div class="col">
+            <div class="card dress-card">
+                <img src="{% static 'images/sheathbride8.jpg' %}" class="card-img-top" alt="Bride Dress 4">
+                <div class="save-btn">Save</div>
+                <p class="tag-data">sheath modern minimal</p>
+            </div>
+        </div>
+
+        <!-- 5 -->
+        <div class="col">
+            <div class="card dress-card">
+                <img src="{% static 'images/bohobride8.jpg' %}" class="card-img-top" alt="Bride Dress 5">
+                <div class="save-btn">Save</div>
+                <p class="tag-data">boho lace earthy</p>
+            </div>
+        </div>
+
+        <!-- 6 -->
+        <div class="col">
+            <div class="card dress-card">
+                <img src="{% static 'images/empirebride8.jpg' %}" class="card-img-top" alt="Bride Dress 6">
+                <div class="save-btn">Save</div>
+                <p class="tag-data">empire waist flowy</p>
+            </div>
+        </div>
+
+        <!-- 1 -->
+        <div class="col">
+            <div class="card dress-card">
+                <img src="{% static 'images/mermaidbride9.jpg' %}" class="card-img-top" alt="Bride Dress 1">
+                <div class="save-btn">Save</div>
+                <p class="tag-data">mermaid elegant fitted</p>
+            </div>
+        </div>
+
+        <!-- 2 -->
+        <div class="col">
+            <div class="card dress-card">
+                <img src="{% static 'images/ballbride9.jpg' %}" class="card-img-top" alt="Bride Dress 2">
+                <div class="save-btn">Save</div>
+                <p class="tag-data">ball gown princess luxury</p>
+            </div>
+        </div>
+
+        <!-- 3 -->
+        <div class="col">
+            <div class="card dress-card">
+                <img src="{% static 'images/alinebride9.jpg' %}" class="card-img-top" alt="Bride Dress 3">
+                <div class="save-btn">Save</div>
+                <p class="tag-data">a-line simple classic</p>
+            </div>
+        </div>
+
+        <!-- 4 -->
+        <div class="col">
+            <div class="card dress-card">
+                <img src="{% static 'images/sheathbride9.jpg' %}" class="card-img-top" alt="Bride Dress 4">
+                <div class="save-btn">Save</div>
+                <p class="tag-data">sheath modern minimal</p>
+            </div>
+        </div>
+
+        <!-- 5 -->
+        <div class="col">
+            <div class="card dress-card">
+                <img src="{% static 'images/bohobride9.jpg' %}" class="card-img-top" alt="Bride Dress 5">
+                <div class="save-btn">Save</div>
+                <p class="tag-data">boho lace earthy</p>
+            </div>
+        </div>
+
+        <!-- 6 -->
+        <div class="col">
+            <div class="card dress-card">
+                <img src="{% static 'images/empirebride9.jpg' %}" class="card-img-top" alt="Bride Dress 6">
+                <div class="save-btn">Save</div>
+                <p class="tag-data">empire waist flowy</p>
+            </div>
+        </div>
+
+        <!-- 1 -->
+        <div class="col">
+            <div class="card dress-card">
+                <img src="{% static 'images/mermaidbride10.jpg' %}" class="card-img-top" alt="Bride Dress 1">
+                <div class="save-btn">Save</div>
+                <p class="tag-data">mermaid elegant fitted</p>
+            </div>
+        </div>
+
+        <!-- 2 -->
+        <div class="col">
+            <div class="card dress-card">
+                <img src="{% static 'images/ballbride10.jpg' %}" class="card-img-top" alt="Bride Dress 2">
+                <div class="save-btn">Save</div>
+                <p class="tag-data">ball gown princess luxury</p>
+            </div>
+        </div>
+
+        <!-- 3 -->
+        <div class="col">
+            <div class="card dress-card">
+                <img src="{% static 'images/alinebride10.jpg' %}" class="card-img-top" alt="Bride Dress 3">
+                <div class="save-btn">Save</div>
+                <p class="tag-data">a-line simple classic</p>
+            </div>
+        </div>
+
+        <!-- 4 -->
+        <div class="col">
+            <div class="card dress-card">
+                <img src="{% static 'images/sheathbride10.jpg' %}" class="card-img-top" alt="Bride Dress 4">
+                <div class="save-btn">Save</div>
+                <p class="tag-data">sheath modern minimal</p>
+            </div>
+        </div>
+
+        <!-- 5 -->
+        <div class="col">
+            <div class="card dress-card">
+                <img src="{% static 'images/bohobride10.jpg' %}" class="card-img-top" alt="Bride Dress 5">
+                <div class="save-btn">Save</div>
+                <p class="tag-data">boho lace earthy</p>
+            </div>
+        </div>
+
+        <!-- 6 -->
+        <div class="col">
+            <div class="card dress-card">
+                <img src="{% static 'images/empirebride10.jpg' %}" class="card-img-top" alt="Bride Dress 6">
+                <div class="save-btn">Save</div>
+                <p class="tag-data">empire waist flowy</p>
+            </div>
+        </div>
+
+        <!-- 1 -->
+        <div class="col">
+            <div class="card dress-card">
+                <img src="{% static 'images/mermaidbride11.jpg' %}" class="card-img-top" alt="Bride Dress 1">
+                <div class="save-btn">Save</div>
+                <p class="tag-data">mermaid elegant fitted</p>
+            </div>
+        </div>
+
+        <!-- 2 -->
+        <div class="col">
+            <div class="card dress-card">
+                <img src="{% static 'images/ballbride11.jpg' %}" class="card-img-top" alt="Bride Dress 2">
+                <div class="save-btn">Save</div>
+                <p class="tag-data">ball gown princess luxury</p>
+            </div>
+        </div>
+
+        <!-- 3 -->
+        <div class="col">
+            <div class="card dress-card">
+                <img src="{% static 'images/alinebride11.jpg' %}" class="card-img-top" alt="Bride Dress 3">
+                <div class="save-btn">Save</div>
+                <p class="tag-data">a-line simple classic</p>
+            </div>
+        </div>
+
+        <!-- 4 -->
+        <div class="col">
+            <div class="card dress-card">
+                <img src="{% static 'images/sheathbride11.jpg' %}" class="card-img-top" alt="Bride Dress 4">
+                <div class="save-btn">Save</div>
+                <p class="tag-data">sheath modern minimal</p>
+            </div>
+        </div>
+
+        <!-- 5 -->
+        <div class="col">
+            <div class="card dress-card">
+                <img src="{% static 'images/bohobride11.jpg' %}" class="card-img-top" alt="Bride Dress 5">
+                <div class="save-btn">Save</div>
+                <p class="tag-data">boho lace earthy</p>
+            </div>
+        </div>
+
+        <!-- 6 -->
+        <div class="col">
+            <div class="card dress-card">
+                <img src="{% static 'images/empirebride11.jpg' %}" class="card-img-top" alt="Bride Dress 6">
+                <div class="save-btn">Save</div>
+                <p class="tag-data">empire waist flowy</p>
+            </div>
+        </div>
+
+        <!-- 1 -->
+        <div class="col">
+            <div class="card dress-card">
+                <img src="{% static 'images/mermaidbride12.jpg' %}" class="card-img-top" alt="Bride Dress 1">
+                <div class="save-btn">Save</div>
+                <p class="tag-data">mermaid elegant fitted</p>
+            </div>
+        </div>
+
+        <!-- 2 -->
+        <div class="col">
+            <div class="card dress-card">
+                <img src="{% static 'images/ballbride12.jpg' %}" class="card-img-top" alt="Bride Dress 2">
+                <div class="save-btn">Save</div>
+                <p class="tag-data">ball gown princess luxury</p>
+            </div>
+        </div>
+
+        <!-- 3 -->
+        <div class="col">
+            <div class="card dress-card">
+                <img src="{% static 'images/alinebride12.jpg' %}" class="card-img-top" alt="Bride Dress 3">
+                <div class="save-btn">Save</div>
+                <p class="tag-data">a-line simple classic</p>
+            </div>
+        </div>
+
+        <!-- 4 -->
+        <div class="col">
+            <div class="card dress-card">
+                <img src="{% static 'images/sheathbride12.jpg' %}" class="card-img-top" alt="Bride Dress 4">
+                <div class="save-btn">Save</div>
+                <p class="tag-data">sheath modern minimal</p>
+            </div>
+        </div>
+
+        <!-- 5 -->
+        <div class="col">
+            <div class="card dress-card">
+                <img src="{% static 'images/bohobride12.jpg' %}" class="card-img-top" alt="Bride Dress 5">
+                <div class="save-btn">Save</div>
+                <p class="tag-data">boho lace earthy</p>
+            </div>
+        </div>
+
+        <!-- 6 -->
+        <div class="col">
+            <div class="card dress-card">
+                <img src="{% static 'images/empirebride12.jpg' %}" class="card-img-top" alt="Bride Dress 6">
+                <div class="save-btn">Save</div>
+                <p class="tag-data">empire waist flowy</p>
+            </div>
+        </div>
+
+        <!-- 1 -->
+        <div class="col">
+            <div class="card dress-card">
+                <img src="{% static 'images/mermaidbride13.jpg' %}" class="card-img-top" alt="Bride Dress 1">
+                <div class="save-btn">Save</div>
+                <p class="tag-data">mermaid elegant fitted</p>
+            </div>
+        </div>
+
+        <!-- 2 -->
+        <div class="col">
+            <div class="card dress-card">
+                <img src="{% static 'images/ballbride13.jpg' %}" class="card-img-top" alt="Bride Dress 2">
+                <div class="save-btn">Save</div>
+                <p class="tag-data">ball gown princess luxury</p>
+            </div>
+        </div>
+
+        <!-- 3 -->
+        <div class="col">
+            <div class="card dress-card">
+                <img src="{% static 'images/alinebride13.jpg' %}" class="card-img-top" alt="Bride Dress 3">
+                <div class="save-btn">Save</div>
+                <p class="tag-data">a-line simple classic</p>
+            </div>
+        </div>
+
+        <!-- 4 -->
+        <div class="col">
+            <div class="card dress-card">
+                <img src="{% static 'images/sheathbride13.jpg' %}" class="card-img-top" alt="Bride Dress 4">
+                <div class="save-btn">Save</div>
+                <p class="tag-data">sheath modern minimal</p>
+            </div>
+        </div>
+
+        <!-- 5 -->
+        <div class="col">
+            <div class="card dress-card">
+                <img src="{% static 'images/bohobride13.jpg' %}" class="card-img-top" alt="Bride Dress 5">
+                <div class="save-btn">Save</div>
+                <p class="tag-data">boho lace earthy</p>
+            </div>
+        </div>
+
+        <!-- 6 -->
+        <div class="col">
+            <div class="card dress-card">
+                <img src="{% static 'images/empirebride13.jpg' %}" class="card-img-top" alt="Bride Dress 6">
+                <div class="save-btn">Save</div>
+                <p class="tag-data">empire waist flowy</p>
+            </div>
+        </div>
+
+        <!-- 1 -->
+        <div class="col">
+            <div class="card dress-card">
+                <img src="{% static 'images/mermaidbride14.jpg' %}" class="card-img-top" alt="Bride Dress 1">
+                <div class="save-btn">Save</div>
+                <p class="tag-data">mermaid elegant fitted</p>
+            </div>
+        </div>
+
+        <!-- 2 -->
+        <div class="col">
+            <div class="card dress-card">
+                <img src="{% static 'images/ballbride14.jpg' %}" class="card-img-top" alt="Bride Dress 2">
+                <div class="save-btn">Save</div>
+                <p class="tag-data">ball gown princess luxury</p>
+            </div>
+        </div>
+
+        <!-- 3 -->
+        <div class="col">
+            <div class="card dress-card">
+                <img src="{% static 'images/alinebride14.jpg' %}" class="card-img-top" alt="Bride Dress 3">
+                <div class="save-btn">Save</div>
+                <p class="tag-data">a-line simple classic</p>
+            </div>
+        </div>
+
+        <!-- 4 -->
+        <div class="col">
+            <div class="card dress-card">
+                <img src="{% static 'images/sheathbride14.jpg' %}" class="card-img-top" alt="Bride Dress 4">
+                <div class="save-btn">Save</div>
+                <p class="tag-data">sheath modern minimal</p>
+            </div>
+        </div>
+
+        <!-- 5 -->
+        <div class="col">
+            <div class="card dress-card">
+                <img src="{% static 'images/bohobride14.jpg' %}" class="card-img-top" alt="Bride Dress 5">
+                <div class="save-btn">Save</div>
+                <p class="tag-data">boho lace earthy</p>
+            </div>
+        </div>
+
+        <!-- 6 -->
+        <div class="col">
+            <div class="card dress-card">
+                <img src="{% static 'images/empirebride14.jpg' %}" class="card-img-top" alt="Bride Dress 6">
+                <div class="save-btn">Save</div>
+                <p class="tag-data">empire waist flowy</p>
+            </div>
+        </div>
+
+        <!-- 1 -->
+        <div class="col">
+            <div class="card dress-card">
+                <img src="{% static 'images/mermaidbride15.jpg' %}" class="card-img-top" alt="Bride Dress 1">
+                <div class="save-btn">Save</div>
+                <p class="tag-data">mermaid elegant fitted</p>
+            </div>
+        </div>
+
+        <!-- 2 -->
+        <div class="col">
+            <div class="card dress-card">
+                <img src="{% static 'images/ballbride15.jpg' %}" class="card-img-top" alt="Bride Dress 2">
+                <div class="save-btn">Save</div>
+                <p class="tag-data">ball gown princess luxury</p>
+            </div>
+        </div>
+
+        <!-- 3 -->
+        <div class="col">
+            <div class="card dress-card">
+                <img src="{% static 'images/alinebride15.jpg' %}" class="card-img-top" alt="Bride Dress 3">
+                <div class="save-btn">Save</div>
+                <p class="tag-data">a-line simple classic</p>
+            </div>
+        </div>
+
+        <!-- 4 -->
+        <div class="col">
+            <div class="card dress-card">
+                <img src="{% static 'images/sheathbride15.jpg' %}" class="card-img-top" alt="Bride Dress 4">
+                <div class="save-btn">Save</div>
+                <p class="tag-data">sheath modern minimal</p>
+            </div>
+        </div>
+
+        <!-- 5 -->
+        <div class="col">
+            <div class="card dress-card">
+                <img src="{% static 'images/bohobride15.jpg' %}" class="card-img-top" alt="Bride Dress 5">
+                <div class="save-btn">Save</div>
+                <p class="tag-data">boho lace earthy</p>
+            </div>
+        </div>
+
+        <!-- 6 -->
+        <div class="col">
+            <div class="card dress-card">
+                <img src="{% static 'images/empirebride15.jpg' %}" class="card-img-top" alt="Bride Dress 6">
+                <div class="save-btn">Save</div>
+                <p class="tag-data">empire waist flowy</p>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+    // Simple front-end search filtering
+    const urlParams = new URLSearchParams(window.location.search);
+    const query = urlParams.get("q");
+
+    if (query) {
+        document.querySelectorAll(".dress-card").forEach(card => {
+            const tags = card.querySelector(".tag-data").innerText.toLowerCase();
+            if (!tags.includes(query.toLowerCase())) {
+                card.parentElement.style.display = "none";
+            }
+        });
+    }
+</script>
+
+{% endblock %}

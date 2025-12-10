@@ -1,0 +1,2193 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<style>
+    /* ============================================
+   ELEGANT WEDDING INSPIRATION STYLING
+   REAL Pinterest 4-Per-Row Layout
+   Color Palette: #A56B6F, #FFFDF8, #F3E9E3, #4E3B31
+   ============================================ */
+
+/* Root Variables */
+:root {
+    --primary-rose: #A56B6F;
+    --cream: #FFFDF8;
+    --blush: #F3E9E3;
+    --brown: #4E3B31;
+    --shadow-soft: 0 4px 12px rgba(165, 107, 111, 0.08);
+    --shadow-hover: 0 8px 25px rgba(165, 107, 111, 0.15);
+}
+
+/* Body & Container */
+body {
+    background: linear-gradient(135deg, var(--cream) 0%, var(--blush) 100%);
+    font-family: 'Cormorant Garamond', 'Georgia', serif;
+    color: var(--brown);
+    min-height: 100vh;
+}
+
+.container {
+    max-width: 1400px;
+}
+
+/* Reduced Top Padding */
+.container.py-5 {
+    padding-top: 2rem !important;
+}
+
+/* Heading Styling - Moved Up */
+h2.mb-4 {
+    font-weight: 600;
+    font-size: 2.5rem;
+    color: var(--brown);
+    letter-spacing: 0.5px;
+    text-align: center;
+    margin-bottom: 1.25rem !important;
+    position: relative;
+    padding-bottom: 0.75rem;
+}
+
+h2.mb-4::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--primary-rose), transparent);
+}
+
+/* Search Bar Styling - Moved Up & Compact */
+form.mb-4 {
+    max-width: 550px;
+    margin: 0 auto 1.75rem auto;
+}
+
+.input-group .form-control {
+    border: 2px solid var(--primary-rose);
+    border-right: none;
+    border-radius: 50px 0 0 50px;
+    padding: 0.7rem 1.5rem;
+    background: var(--cream);
+    color: var(--brown);
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+}
+
+.input-group .form-control:focus {
+    box-shadow: 0 4px 20px rgba(165, 107, 111, 0.15);
+    border-color: var(--primary-rose);
+    background: white;
+    outline: none;
+}
+
+.input-group .form-control::placeholder {
+    color: rgba(78, 59, 49, 0.5);
+    font-style: italic;
+}
+
+.input-group .btn-primary {
+    background: linear-gradient(135deg, var(--primary-rose) 0%, #8a575a 100%);
+    border: 2px solid var(--primary-rose);
+    border-left: none;
+    border-radius: 0 50px 50px 0;
+    padding: 0.7rem 1.75rem;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    transition: all 0.3s ease;
+}
+
+.input-group .btn-primary:hover {
+    background: linear-gradient(135deg, #8a575a 0%, var(--primary-rose) 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(165, 107, 111, 0.3);
+}
+
+/* REAL Pinterest Masonry Grid - 4 Columns */
+.row.g-4 {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: masonry;
+    gap: 14px;
+    margin-bottom: 3rem;
+}
+
+.row.g-4 .col {
+    width: 100%;
+    max-width: 100%;
+    margin-bottom: 16px;
+}
+
+/* Card Styling - Pinterest Aesthetic */
+.card {
+    border-radius: 20px;
+    overflow: hidden;
+    background: white;
+    transition: all 0.3s ease;
+    border: none !important;
+    box-shadow: var(--shadow-soft) !important;
+    display: flex;
+    flex-direction: column;
+    height: auto;
+    cursor: pointer;
+}
+
+.card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-hover) !important;
+}
+
+/* Card Image - Different Heights Per Card */
+.card-img-top {
+    width: 100%;
+    object-fit: cover;
+    transition: opacity 0.3s ease;
+    display: block;
+}
+
+/* Different image heights - Cards span different grid rows */
+.col:nth-child(4n+1) {
+    grid-row-end: span 32;
+}
+
+.col:nth-child(4n+1) .card-img-top {
+    height: 320px;
+}
+
+.col:nth-child(4n+2) {
+    grid-row-end: span 40;
+}
+
+.col:nth-child(4n+2) .card-img-top {
+    height: 400px;
+}
+
+.col:nth-child(4n+3) {
+    grid-row-end: span 28;
+}
+
+.col:nth-child(4n+3) .card-img-top {
+    height: 280px;
+}
+
+.col:nth-child(4n+4) {
+    grid-row-end: span 36;
+}
+
+.col:nth-child(4n+4) .card-img-top {
+    height: 360px;
+}
+
+.card:hover .card-img-top {
+    opacity: 0.95;
+}
+
+/* Card Body */
+.card-body {
+    padding: 1.25rem;
+    background: white;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Card Title */
+.card-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--brown);
+    margin-bottom: 0.5rem;
+    letter-spacing: 0.2px;
+    line-height: 1.4;
+}
+
+/* Card Text */
+.card-text {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.85rem;
+    color: rgba(78, 59, 49, 0.7);
+    margin-bottom: 1rem;
+    line-height: 1.5;
+}
+
+/* Save Button - Pinterest Style */
+.save-btn {
+    border: none !important;
+    color: white !important;
+    background: var(--primary-rose);
+    border-radius: 24px;
+    padding: 0.5rem 1.25rem;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    font-size: 0.8rem;
+    letter-spacing: 0.3px;
+    transition: all 0.25s ease;
+    width: auto;
+    display: inline-block;
+}
+
+.save-btn:hover {
+    background: #8a575a !important;
+    color: white !important;
+    transform: scale(1.05);
+    box-shadow: 0 4px 12px rgba(165, 107, 111, 0.3);
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+    .row.g-4 {
+        grid-template-columns: repeat(3, 1fr);
+    }
+    
+    /* Adjust pattern for 3 columns */
+    .col:nth-child(3n+1) {
+        grid-row-end: span 42;
+    }
+    
+    .col:nth-child(3n+1) .card-img-top {
+        height: 320px;
+    }
+    
+    .col:nth-child(3n+2) {
+        grid-row-end: span 48;
+    }
+    
+    .col:nth-child(3n+2) .card-img-top {
+        height: 380px;
+    }
+    
+    .col:nth-child(3n+3) {
+        grid-row-end: span 40;
+    }
+    
+    .col:nth-child(3n+3) .card-img-top {
+        height: 300px;
+    }
+}
+
+@media (max-width: 768px) {
+    h2.mb-4 {
+        font-size: 2rem;
+    }
+    
+    .row.g-4 {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+    }
+    
+    .card-title {
+        font-size: 1rem;
+    }
+    
+    .card-text {
+        font-size: 0.8rem;
+    }
+    
+    /* Adjust pattern for 2 columns */
+    .col:nth-child(2n+1) {
+        grid-row-end: span 38;
+    }
+    
+    .col:nth-child(2n+1) .card-img-top {
+        height: 280px;
+    }
+    
+    .col:nth-child(2n+2) {
+        grid-row-end: span 44;
+    }
+    
+    .col:nth-child(2n+2) .card-img-top {
+        height: 340px;
+    }
+}
+
+@media (max-width: 576px) {
+    .row.g-4 {
+        grid-template-columns: 1fr;
+    }
+    
+    .container.py-5 {
+        padding-top: 1.5rem !important;
+    }
+    
+    /* Single column - uniform height */
+    .col:nth-child(n) .card-img-top {
+        height: 300px !important;
+    }
+}
+
+/* Optional: Add Google Fonts to your base.html */
+/* 
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+*/
+
+/* Smooth Scrolling */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Selection Color */
+::selection {
+    background: var(--primary-rose);
+    color: white;
+}
+
+::-moz-selection {
+    background: var(--primary-rose);
+    color: white;
+}
+
+/* Smooth Image Loading */
+.card-img-top {
+    animation: fadeInImage 0.4s ease-in;
+}
+
+@keyframes fadeInImage {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+/* Pinterest-style overlay on hover */
+.card {
+    position: relative;
+}
+
+.card::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(165, 107, 111, 0);
+    transition: background 0.3s ease;
+    pointer-events: none;
+    border-radius: 20px;
+}
+
+.card:hover::after {
+    background: rgba(165, 107, 111, 0.03);
+}
+
+/* ===== SAVE IMAGE MODAL STYLING ===== */
+
+/* Hide Bootstrap's default modal behavior */
+        .modal.fade {
+            transition: none !important;
+        }
+        body.modal-active {
+    overflow: hidden !important;
+    position: fixed !important;
+    width: 100% !important;
+}
+        
+        /* Custom modal overlay - ALWAYS WORKS */
+        .custom-modal-overlay {
+            display: none !important;;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: rgba(78, 59, 49, 0.7);
+            z-index: 10000;
+            align-items: center;
+            justify-content: center;
+            overflow-y: auto;
+            padding: 20px;
+            display: flex;
+        }
+        
+        .custom-modal-overlay.active {
+            display: flex !important;
+            align-items: center;
+    justify-content: center;
+        }
+        
+        /* Modal container */
+        .custom-modal-container {
+            background: #FFFDF8;
+            border-radius: 24px;
+            box-shadow: 0 20px 60px rgba(78, 59, 49, 0.25);
+            max-width: 500px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            z-index: 10001;
+            animation: slideIn 0.3s ease-out;
+        }
+        
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* Header */
+        .custom-modal-header {
+            background: linear-gradient(135deg, #F3E9E3 0%, #FFFDF8 100%);
+            border-bottom: 2px solid #F3E9E3;
+            padding: 1.5rem 2rem;
+            border-radius: 24px 24px 0 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .custom-modal-title {
+            font-family: 'Cormorant Garamond', 'Georgia', serif;
+            font-weight: 600;
+            font-size: 1.5rem;
+            color: #4E3B31;
+            margin: 0;
+        }
+        
+        .custom-modal-close {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: #4E3B31;
+            cursor: pointer;
+            padding: 0;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: background 0.2s;
+        }
+        
+        .custom-modal-close:hover {
+            background: rgba(78, 59, 49, 0.1);
+        }
+        
+        /* Body */
+        .custom-modal-body {
+            padding: 2rem;
+            background: #FFFDF8;
+        }
+        
+        .custom-form-label {
+            font-weight: 500;
+            font-size: 1rem;
+            color: #4E3B31;
+            margin-bottom: 0.75rem;
+            display: block;
+        }
+        
+        .custom-form-select {
+            display: block;
+            width: 100%;
+            padding: 0.875rem 1.25rem;
+            font-size: 1rem;
+            color: #4E3B31;
+            background-color: #FFFDF8;
+            border: 2px solid #F3E9E3;
+            border-radius: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .custom-form-select:hover {
+            border-color: #A56B6F;
+        }
+        
+        .custom-form-select:focus {
+            outline: none;
+            border-color: #A56B6F;
+            box-shadow: 0 4px 15px rgba(165, 107, 111, 0.15);
+        }
+        
+        /* Footer */
+        .custom-modal-footer {
+            background-color: #F3E9E3;
+            border-top: 2px solid #F3E9E3;
+            padding: 1.5rem 2rem;
+            border-radius: 0 0 24px 24px;
+            display: flex;
+            gap: 1rem;
+            justify-content: flex-end;
+        }
+        
+        .custom-btn {
+            padding: 0.75rem 2rem;
+            border-radius: 50px;
+            font-weight: 500;
+            font-size: 1rem;
+            cursor: pointer;
+            border: none;
+            transition: all 0.3s ease;
+            letter-spacing: 0.5px;
+        }
+        
+        .custom-btn-secondary {
+            background-color: transparent;
+            border: 2px solid #4E3B31;
+            color: #4E3B31;
+        }
+        
+        .custom-btn-secondary:hover {
+            background-color: #4E3B31;
+            color: #FFFDF8;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(78, 59, 49, 0.3);
+        }
+        
+        .custom-btn-primary {
+            background: linear-gradient(135deg, #A56B6F, #8d5a5e);
+            color: #FFFDF8;
+            box-shadow: 0 6px 20px rgba(165, 107, 111, 0.3);
+        }
+        
+        .custom-btn-primary:hover {
+            background: linear-gradient(135deg, #8d5a5e, #A56B6F);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(165, 107, 111, 0.4);
+        }
+        
+        /* Prevent body scroll when modal open */
+        body.modal-active {
+            overflow: hidden;
+        }
+        
+        /* Alert styling */
+        .custom-alert {
+            background: #fff3cd;
+            border: 1px solid #ffc107;
+            color: #856404;
+            padding: 0.75rem 1rem;
+            border-radius: 8px;
+            margin-top: 1rem;
+        }
+        /* SUCCESS NOTIFICATION - Shows "Saved!" */
+.save-notification {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: linear-gradient(135deg, #4CAF50, #45a049);
+    color: white;
+    padding: 16px 24px;
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(76, 175, 80, 0.4);
+    font-weight: 600;
+    font-size: 1rem;
+    z-index: 999999;
+    display: none;
+    align-items: center;
+    gap: 10px;
+    animation: slideInRight 0.4s ease-out;
+}
+
+.save-notification.show {
+    display: flex !important;
+}
+
+.save-notification::before {
+    content: '✓';
+    font-size: 24px;
+    font-weight: bold;
+}
+
+@keyframes slideInRight {
+    from {
+        transform: translateX(400px);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideOutRight {
+    from {
+        transform: translateX(0);
+        opacity: 1;
+    }
+    to {
+        transform: translateX(400px);
+        opacity: 0;
+    }
+}
+
+.save-notification.hiding {
+    animation: slideOutRight 0.4s ease-out forwards;
+}
+</style>
+<div class="container py-5">
+    <h2 class="mb-4">All Trending Wedding Inspiration</h2>
+
+    <!-- Search Bar -->
+    <form method="GET" class="mb-4">
+        <div class="input-group">
+            <input type="text" name="q" class="form-control" placeholder="Search wedding inspiration...">
+            <button class="btn btn-primary" type="submit">Search</button>
+        </div>
+    </form>
+
+    <!-- Grid of Inspiration Cards -->
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4">
+
+        <!-- Card 1 -->
+        <div class="col">
+            <div class="card border-0 shadow-sm position-relative">
+                <img src="/media/board_items/wedding1.jpg" class="card-img-top" alt="Wedding Inspiration 1">
+                <div class="card-body home-card">
+                    <h5 class="card-title tag-data">Rustic Garden Wedding</h5>
+                    <p class="card-text">Soft blush tones with natural florals.</p>
+                      <button class="btn btn-outline-primary save-btn"
+                      onclick="openSaveModal('/media/board_items/wedding1.jpg')">Save</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="col">
+        <div class="card border-0 shadow-sm position-relative">
+            <img src="/media/board_items/gown1.jpg" class="card-img-top" alt="Ball Gown">
+            <div class="card-body home-card">
+                <h5 class="card-title tag-data">Ball Gown</h5>
+                <p class="card-text">Classic princess silhouette with full skirt and fitted bodice.</p>
+                <button class="btn btn-outline-primary save-btn"
+                      onclick="openSaveModal('/media/board_items/gown1.jpg')">Save</button>
+            </div>
+           </div>
+          </div>
+
+          <div class="col">
+        <div class="card border-0 shadow-sm position-relative">
+            <img src="/media/board_items/groom1.jpg" class="card-img-top" alt="Tuxedo">
+            <div class="card-body home-card">
+                <h5 class="card-title tag-data">Tuxedo</h5>
+                <p class="card-text">Classic black tie style with satin lapels for formal elegance.</p>
+                <button class="btn btn-outline-primary save-btn"
+                      onclick="openSaveModal('/media/board_items/groom1.jpg')">Save</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="col">
+        <div class="card border-0 shadow-sm position-relative">
+            <img src="/media/board_items/honor1.jpg" class="card-img-top" alt="Long A-Line Dress">
+            <div class="card-body home-card">
+                <h5 class="card-title tag-data">Long A-Line Dress</h5>
+                <p class="card-text">Elegant, floor-length dress with a flowing A-line silhouette.</p>
+                <button class="btn btn-outline-primary save-btn"
+                      onclick="openSaveModal('/media/board_items/honor1.jpg')">Save</button>
+            </div>
+        </div>
+    </div>
+
+<div class="col">
+        <div class="card border-0 shadow-sm position-relative">
+            <img src="/media/board_items/maid1.jpg" class="card-img-top" alt="Chiffon Maxi Dress">
+            <div class="card-body home-card">
+                <h5 class="card-title tag-data">Chiffon Maxi Dress</h5>
+                <p class="card-text">Flowy and lightweight, perfect for an elegant wedding look.</p>
+                <button class="btn btn-outline-primary save-btn"
+                      onclick="openSaveModal('/media/board_items/maid1.jpg')">Save</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="col">
+        <div class="card border-0 shadow-sm position-relative">
+            <img src="/media/board_items/men1.jpg" class="card-img-top" alt="Classic Suit">
+            <div class="card-body home-card">
+                <h5 class="card-title tag-data">Classic Suit</h5>
+                <p class="card-text">Timeless suit style in dark or neutral tones, suitable for any wedding.</p>
+                <button class="btn btn-outline-primary save-btn"
+                      onclick="openSaveModal('/media/board_items/men1.jpg')">Save</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="col">
+        <div class="card border-0 shadow-sm position-relative">
+            <img src="/media/board_items/flower1.jpg" class="card-img-top" alt="Tulle Dress">
+            <div class="card-body home-card">
+                <h5 class="card-title tag-data">Tulle Dress</h5>
+                <p class="card-text">Soft and fluffy tulle skirt, perfect for a whimsical wedding look.</p>
+                <button class="btn btn-outline-primary save-btn"
+                      onclick="openSaveModal('/media/board_items/flower1.jpg')">Save</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="col">
+        <div class="card border-0 shadow-sm position-relative">
+            <img src="/media/board_items/boy1.jpg" class="card-img-top" alt="Mini Suit">
+            <div class="card-body home-card">
+                <h5 class="card-title tag-data">Mini Suit</h5>
+                <p class="card-text">Classic tiny suit, perfect for a formal wedding look for young boys.</p>
+                <button class="btn btn-outline-primary save-btn"
+                      onclick="openSaveModal('/media/board_items/boy1.jpg')">Save</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="col">
+        <div class="card border-0 shadow-sm position-relative">
+            <img src="/media/board_items/motherg1.jpg" class="card-img-top" alt="Elegant Evening Gown">
+            <div class="card-body home-card">
+                <h5 class="card-title tag-data">Elegant Evening Gown</h5>
+                <p class="card-text">Floor-length gown in sophisticated colors for a formal look.</p>
+                <button class="btn btn-outline-primary save-btn" onclick="openSaveModal('/media/board_items/motherg1.jpg')">Save</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="col">
+        <div class="card border-0 shadow-sm position-relative">
+            <img src="/media/board_items/motherb1.jpg" class="card-img-top" alt="Elegant Evening Gown">
+            <div class="card-body home-card">
+                <h5 class="card-title tag-data">Elegant Evening Gown</h5>
+                <p class="card-text">Floor-length gown in sophisticated shades, perfect for formal weddings.</p>
+                <button class="btn btn-outline-primary save-btn" onclick="openSaveModal('/media/board_items/motherb1.jpg')">Save</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="col">
+        <div class="card border-0 shadow-sm position-relative">
+            <img src="/media/board_items/ring1.jpg" class="card-img-top" alt="Classic Gold Bands">
+            <div class="card-body home-card">
+                <h5 class="card-title tag-data">Classic Gold Bands</h5>
+                <p class="card-text">Timeless and elegant, perfect for couples who love simplicity.</p>
+                <button class="btn btn-outline-primary save-btn" onclick="openSaveModal('/media/board_items/ring1.jpg')">Save</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="col">
+        <div class="card border-0 shadow-sm position-relative">
+            <img src="/media/board_items/cake1.jpg" class="card-img-top" alt="Classic White Cake">
+            <div class="card-body home-card">
+                <h5 class="card-title tag-data">Classic White Cake</h5>
+                <p class="card-text">Elegant and timeless white cake, perfect for a white wedding.</p>
+                <button class="btn btn-outline-primary save-btn" onclick="openSaveModal('/media/board_items/cake1.jpg')">Save</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="col">
+        <div class="card border-0 shadow-sm position-relative">
+            <img src="/media/board_items/decoration1.jpg" class="card-img-top" alt="Floral Centerpieces">
+            <div class="card-body home-card">
+                <h5 class="card-title tag-data">Floral Centerpieces</h5>
+                <p class="card-text">Elegant floral arrangements for tables to enhance wedding reception ambiance.</p>
+                <button class="btn btn-outline-primary save-btn" onclick="openSaveModal('/media/board_items/decoration1.jpg')">Save</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="col">
+        <div class="card border-0 shadow-sm position-relative">
+            <img src="/media/board_items/photo1.jpg" class="card-img-top" alt="Candid Shots">
+            <div class="card-body home-card">
+                <h5 class="card-title tag-data">Candid Shots</h5>
+                <p class="card-text">Capture spontaneous moments that reflect genuine emotions throughout the day.</p>
+                <button class="btn btn-outline-primary save-btn" onclick="openSaveModal('/media/board_items/photo1.jpg')">Save</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="col">
+        <div class="card border-0 shadow-sm position-relative">
+            <img src="/media/board_items/makeup1.jpg" class="card-img-top" alt="Bridal Glam Makeup">
+            <div class="card-body home-card">
+                <h5 class="card-title tag-data">Bridal Glam Makeup</h5>
+                <p class="card-text">Elegant and sophisticated makeup to make the bride shine on her big day.</p>
+                <button class="btn btn-outline-primary save-btn" onclick="openSaveModal('/media/board_items/makeup1.jpg')">Save</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="col">
+        <div class="card border-0 shadow-sm position-relative">
+            <img src="/media/board_items/hair1.jpg" class="card-img-top" alt="Classic Updo">
+            <div class="card-body home-card">
+                <h5 class="card-title tag-data">Classic Updo</h5>
+                <p class="card-text">Elegant updo perfect for brides who want a timeless and polished look.</p>
+                <button class="btn btn-outline-primary save-btn" onclick="openSaveModal('/media/board_items/hair1.jpg')">Save</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="col">
+        <div class="card border-0 shadow-sm position-relative">
+            <img src="/media/board_items/bridal1.jpg" class="card-img-top" alt="Matching Bridesmaid Dresses">
+            <div class="card-body home-card">
+                <h5 class="card-title tag-data">Matching Bridesmaid Dresses</h5>
+                <p class="card-text">Coordinated dresses to create a cohesive and visually stunning bridal party look.</p>
+                <button class="btn btn-outline-primary save-btn" onclick="openSaveModal('/media/board_items/bridal1.jpg')">Save</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="col">
+        <div class="card border-0 shadow-sm position-relative">
+            <img src="/media/board_items/honey1.jpg" class="card-img-top" alt="Beach Paradise">
+            <div class="card-body home-card">
+                <h5 class="card-title tag-data">Beach Paradise</h5>
+                <p class="card-text">Relax on pristine beaches with turquoise waters and enjoy the ultimate seaside escape.</p>
+                <button class="btn btn-outline-primary save-btn" onclick="openSaveModal('/media/board_items/honey1.jpg')">Save</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="col">
+        <div class="card border-0 shadow-sm position-relative">
+            <img src="/media/board_items/invitation1.jpg" class="card-img-top" alt="Classic Formal Invitation">
+            <div class="card-body home-card">
+                <h5 class="card-title tag-data">Classic Formal Invitation</h5>
+                <p class="card-text">Elegant and traditional design perfect for a formal wedding ceremony.</p>
+                <button class="btn btn-outline-primary save-btn" onclick="openSaveModal('/media/board_items/invitation1.jpg')">Save</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="col">
+        <div class="card border-0 shadow-sm position-relative">
+            <img src="/media/board_items/theme1.jpg" class="card-img-top" alt="Rustic Theme">
+            <div class="card-body home-card">
+                <h5 class="card-title tag-data">Rustic Theme</h5>
+                <p class="card-text">Natural, earthy decorations with wood accents, burlap, and soft floral touches.</p>
+                <button class="btn btn-outline-primary save-btn" onclick="openSaveModal('/media/board_items/theme1.jpg')">Save</button>
+            </div>
+        </div>
+    </div>
+
+        <!-- Card 2 -->
+        <div class="col">
+            <div class="card border-0 shadow-sm position-relative">
+                <img src="/media/board_items/wedding2.jpg" class="card-img-top" alt="Wedding Inspiration 2">
+                <div class="card-body home-card">
+                    <h5 class="card-title tag-data">Luxury Ballroom Celebration</h5>
+                    <p class="card-text">Elegant gold and ivory palette.</p>
+                    <button class="btn btn-outline-primary save-btn" 
+                     data-image="/media/board_items/wedding1.jpg"> Save</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="col">
+        <div class="card border-0 shadow-sm position-relative">
+            <img src="/media/board_items/gown2.jpg" class="card-img-top" alt="A-Line">
+            <div class="card-body home-card">
+                <h5 class="card-title tag-data">A-Line</h5>
+                <p class="card-text">Flattering for most body types, gently flares from the waist.</p>
+                <button class="btn btn-outline-primary save-btn" onclick="openSaveModal('/media/board_items/gown2.jpg')">Save</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="col">
+        <div class="card border-0 shadow-sm position-relative">
+            <img src="/media/board_items/grrom2.jpg" class="card-img-top" alt="Suit">
+            <div class="card-body home-card">
+                <h5 class="card-title tag-data">Suit</h5>
+                <p class="card-text">Modern tailored suits in a variety of colors and fabrics.</p>
+                <button class="btn btn-outline-primary save-btn" onclick="openSaveModal('/media/board_items/grrom2.jpg')">Save</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="col">
+        <div class="card border-0 shadow-sm position-relative">
+            <img src="/media/board_items/honor2.jpg" class="card-img-top" alt="Sheath Dress">
+            <div class="card-body home-card">
+                <h5 class="card-title tag-data">Sheath Dress</h5>
+                <p class="card-text">Slim-fitting dress that elegantly hugs the body for a modern look.</p>
+                <button class="btn btn-outline-primary save-btn" onclick="openSaveModal('/media/board_items/honor2.jpg')">Save</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="col">
+        <div class="card border-0 shadow-sm position-relative">
+            <img src="/media/board_items/maid2.jpg" class="card-img-top" alt="A-Line Dress">
+            <div class="card-body home-card">
+                <h5 class="card-title tag-data">A-Line Dress</h5>
+                <p class="card-text">Classic style flattering for most body types, with a gentle flare.</p>
+                <button class="btn btn-outline-primary save-btn" onclick="openSaveModal('/media/board_items/maid2.jpg')">Save</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="col">
+        <div class="card border-0 shadow-sm position-relative">
+            <img src="/media/board_items/men2.jpg" class="card-img-top" alt="Tuxedo">
+            <div class="card-body home-card">
+                <h5 class="card-title tag-data">Tuxedo</h5>
+                <p class="card-text">Formal black tie option with satin lapels for an elegant look.</p>
+                <button class="btn btn-outline-primary save-btn" onclick="openSaveModal('/media/board_items/men2.jpg')">Save</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="col">
+        <div class="card border-0 shadow-sm position-relative">
+            <img src="/media/board_items/flower2.jpg" class="card-img-top" alt="Lace Dress">
+            <div class="card-body home-card">
+                <h5 class="card-title tag-data">Lace Dress</h5>
+                <p class="card-text">Delicate lace detailing for a classic and elegant flower girl style.</p>
+                <button class="btn btn-outline-primary save-btn" onclick="openSaveModal('/media/board_items/flower2.jpg')">Save</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="col">
+        <div class="card border-0 shadow-sm position-relative">
+            <img src="/media/board_items/boy2.jpg" class="card-img-top" alt="Tuxedo">
+            <div class="card-body home-card">
+                <h5 class="card-title tag-data">Tuxedo</h5>
+                <p class="card-text">Formal black tie outfit with a bow tie, making him look extra charming.</p>
+                <button class="btn btn-outline-primary save-btn" onclick="openSaveModal('/media/board_items/boy2.jpg')">Save</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="col">
+        <div class="card border-0 shadow-sm position-relative">
+            <img src="/media/board_items/motherg2.jpg" class="card-img-top" alt="A-Line Dress">
+            <div class="card-body home-card">
+                <h5 class="card-title tag-data">A-Line Dress</h5>
+                <p class="card-text">Flattering silhouette suitable for mothers of the groom at weddings.</p>
+                <button class="btn btn-outline-primary save-btn" onclick="openSaveModal('/media/board_items/motherg2.jpg')">Save</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="col">
+        <div class="card border-0 shadow-sm position-relative">
+            <img src="/media/board_items/motherb2.jpg" class="card-img-top" alt="A-Line Dress">
+            <div class="card-body home-card">
+                <h5 class="card-title tag-data">A-Line Dress</h5>
+                <p class="card-text">Classic flattering silhouette suitable for mothers of the bride.</p>
+                <button class="btn btn-outline-primary save-btn" onclick="openSaveModal('/media/board_items/motherb2.jpg')">Save</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="col">
+        <div class="card border-0 shadow-sm position-relative">
+            <img src="/media/board_items/ring2.jpg" class="card-img-top" alt="Diamond Engagement Ring">
+            <div class="card-body home-card">
+                <h5 class="card-title tag-data">Diamond Ring</h5>
+                <p class="card-text">Sparkling diamond set in a classic or modern band for a stunning look.</p>
+                <button class="btn btn-outline-primary save-btn" onclick="openSaveModal('/media/board_items/ring2.jpg')">Save</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="col">
+        <div class="card border-0 shadow-sm position-relative">
+            <img src="/media/board_items/cake2.jpg" class="card-img-top" alt="Naked Cake">
+            <div class="card-body home-card">
+                <h5 class="card-title tag-data">Naked Cake</h5>
+                <p class="card-text">Rustic style cake with minimal frosting for a natural, chic look.</p>
+                <button class="btn btn-outline-primary save-btn" onclick="openSaveModal('/media/board_items/cake2.jpg')">Save</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="col">
+        <div class="card border-0 shadow-sm position-relative">
+            <img src="/media/board_items/decoration2.jpg" class="card-img-top" alt="Table Runners & Linens">
+            <div class="card-body home-card">
+                <h5 class="card-title tag-data">Table Runners & Linens</h5>
+                <p class="card-text">Stylish table fabrics that add color, texture, and elegance to each table setup.</p>
+                <button class="btn btn-outline-primary save-btn" onclick="openSaveModal('/media/board_items/decoration2.jpg')">Save</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="col">
+        <div class="card border-0 shadow-sm position-relative">
+            <img src="/media/board_items/photo2.jpg" class="card-img-top" alt="Portrait Photography">
+            <div class="card-body home-card">
+                <h5 class="card-title tag-data">Portrait Photography</h5>
+                <p class="card-text">Stunning portraits of the couple, wedding party, and family for timeless memories.</p>
+                <button class="btn btn-outline-primary save-btn" onclick="openSaveModal('/media/board_items/photo2.jpg')">Save</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="col">
+        <div class="card border-0 shadow-sm position-relative">
+            <img src="/media/board_items/makeup2.jpg" class="card-img-top" alt="Natural Bridal Look">
+            <div class="card-body home-card">
+                <h5 class="card-title tag-data">Natural Bridal Look</h5>
+                <p class="card-text">Soft, minimalistic makeup highlighting the bride's natural beauty.</p>
+                <button class="btn btn-outline-primary save-btn" onclick="openSaveModal('/media/board_items/makeup2.jpg')">Save</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="col">
+        <div class="card border-0 shadow-sm position-relative">
+            <img src="/media/board_items/hair2.jpg" class="card-img-top" alt="Braided Styles">
+            <div class="card-body home-card">
+                <h5 class="card-title tag-data">Braided Styles</h5>
+                <p class="card-text">Creative braids and twists that add texture and uniqueness to the bridal look.</p>
+                <button class="btn btn-outline-primary save-btn" onclick="openSaveModal('/media/board_items/hair2.jpg')">Save</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="col">
+        <div class="card border-0 shadow-sm position-relative">
+            <img src="/media/board_items/bridal2.jpg" class="card-img-top" alt="Custom Accessories">
+            <div class="card-body home-card">
+                <h5 class="card-title tag-data">Custom Accessories</h5>
+                <p class="card-text">Unique accessories like sashes, jewelry, or hairpieces to personalize the party look.</p>
+                <button class="btn btn-outline-primary save-btn" onclick="openSaveModal('/media/board_items/bridal2.jpg')">Save</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="col">
+        <div class="card border-0 shadow-sm position-relative">
+            <img src="/media/board_items/honey2.jpg" class="card-img-top" alt="Mountain Retreat">
+            <div class="card-body home-card">
+                <h5 class="card-title tag-data">Mountain Retreat</h5>
+                <p class="card-text">Cozy up in a cabin or resort surrounded by breathtaking mountain views.</p>
+                <button class="btn btn-outline-primary save-btn" onclick="openSaveModal('/media/board_items/honey2.jpg')">Save</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="col">
+        <div class="card border-0 shadow-sm position-relative">
+            <img src="/media/board_items/invitation2.jpg" class="card-img-top" alt="Floral Invitation">
+            <div class="card-body home-card">
+                <h5 class="card-title tag-data">Floral Invitation</h5>
+                <p class="card-text">Beautiful floral patterns for a romantic and colorful wedding invitation.</p>
+                <button class="btn btn-outline-primary save-btn" onclick="openSaveModal('/media/board_items/invitation2.jpg')">Save</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="col">
+        <div class="card border-0 shadow-sm position-relative">
+            <img src="/media/board_items/theme2.jpg" class="card-img-top" alt="Classic Elegant Theme">
+            <div class="card-body home-card">
+                <h5 class="card-title tag-data">Classic Elegant Theme</h5>
+                <p class="card-text">Timeless elegance with sophisticated color palettes, chandeliers, and luxury details.</p>
+                <button class="btn btn-outline-primary save-btn" onclick="openSaveModal('/media/board_items/theme2.jpg')">Save</button>
+            </div>
+        </div>
+    </div>
+
+
+        <!-- Card 3 -->
+        <div class="col">
+            <div class="card border-0 shadow-sm position-relative">
+                <img src="/media/board_items/wedding3.jpg" class="card-img-top" alt="Wedding Inspiration 3">
+                <div class="card-body home-card">
+                    <h5 class="card-title tag-data">Beachfront Ceremony</h5>
+                    <p class="card-text">Sunset by the ocean with pastel tones.</p>
+                    <button class="btn btn-outline-primary save-btn" 
+                     data-image="/media/board_items/wedding1.jpg"> Save</button>
+                </div>
+            </div>
+        </div>
+
+<div class="col">
+        <div class="card border-0 shadow-sm position-relative">
+            <img src="/media/board_items/gown3.jpg" class="card-img-top" alt="Mermaid">
+            <div class="card-body home-card">
+                <h5 class="card-title tag-data">Mermaid</h5>
+                <p class="card-text">Fitted through the bodice and hips, flares at knees for a dramatic look.</p>
+                <button class="btn btn-outline-primary save-btn" onclick="openSaveModal('/media/board_items/gown3.jpg')">Save</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="col">
+        <div class="card border-0 shadow-sm position-relative">
+            <img src="/media/board_items/groom3.jpg" class="card-img-top" alt="Morning Coat">
+            <div class="card-body home-card">
+                <h5 class="card-title tag-data">Morning Coat</h5>
+                <p class="card-text">Traditional morning dress with tailcoat, perfect for daytime weddings.</p>
+                <button class="btn btn-outline-primary save-btn" onclick="openSaveModal('/media/board_items/groom3.jpg')">Save</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="col">
+        <div class="card border-0 shadow-sm position-relative">
+            <img src="/media/board_items/honor3.jpg" class="card-img-top" alt="Off-Shoulder Dress">
+            <div class="card-body home-card">
+                <h5 class="card-title tag-data">Off-Shoulder Dress</h5>
+                <p class="card-text">Romantic off-shoulder style with soft draping and feminine charm.</p>
+                <button class="btn btn-outline-primary save-btn" onclick="openSaveModal('/media/board_items/honor3.jpg')">Save</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="col">
+        <div class="card border-0 shadow-sm position-relative">
+            <img src="/media/board_items/maid3.jpg" class="card-img-top" alt="Off-Shoulder Dress">
+            <div class="card-body home-card">
+                <h5 class="card-title tag-data">Off-Shoulder Dress</h5>
+                <p class="card-text">Stylish off-shoulder neckline adding a feminine touch.</p>
+                <button class="btn btn-outline-primary save-btn" onclick="openSaveModal('/media/board_items/maid3.jpg')">Save</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="col">
+        <div class="card border-0 shadow-sm position-relative">
+            <img src="/media/board_items/men3.jpg" class="card-img-top" alt="Three-Piece Suit">
+            <div class="card-body home-card">
+                <h5 class="card-title tag-data">Three-Piece Suit</h5>
+                <p class="card-text">Includes jacket, vest, and trousers for a polished, formal style.</p>
+                <button class="btn btn-outline-primary save-btn" onclick="openSaveModal('/media/board_items/men3.jpg')">Save</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="col">
+        <div class="card border-0 shadow-sm position-relative">
+            <img src="/media/board_items/flower3.jpg" class="card-img-top" alt="Satin Dress">
+            <div class="card-body home-card">
+                <h5 class="card-title tag-data">Satin Dress</h5>
+                <p class="card-text">Smooth satin fabric with a simple yet elegant design for young girls.</p>
+                <button class="btn btn-outline-primary save-btn" onclick="openSaveModal('/media/board_items/flower3.jpg')">Save</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="col">
+        <div class="card border-0 shadow-sm position-relative">
+            <img src="/media/board_items/boy3.jpg" class="card-img-top" alt="Vest & Shirt Combo">
+            <div class="card-body home-card">
+                <h5 class="card-title tag-data">Vest & Shirt Combo</h5>
+                <p class="card-text">Smart casual look with a vest and shirt, perfect for semi-formal weddings.</p>
+                <button class="btn btn-outline-primary save-btn" onclick="openSaveModal('/media/board_items/boy3.jpg')">Save</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="col">
+        <div class="card border-0 shadow-sm position-relative">
+            <img src="/media/board_items/motherg3.jpg" class="card-img-top" alt="Lace Dress">
+            <div class="card-body home-card">
+                <h5 class="card-title tag-data">Lace Dress</h5>
+                <p class="card-text">Classic lace detailing adding elegance and sophistication.</p>
+                <button class="btn btn-outline-primary save-btn" onclick="openSaveModal('/media/board_items/motherg3.jpg')">Save</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="col">
+        <div class="card border-0 shadow-sm position-relative">
+            <img src="/media/board_items/motherb3.jpg" class="card-img-top" alt="Lace Dress">
+            <div class="card-body home-card">
+                <h5 class="card-title tag-data">Lace Dress</h5>
+                <p class="card-text">Delicate lace detailing for a refined and elegant look.</p>
+                <button class="btn btn-outline-primary save-btn" onclick="openSaveModal('/media/board_items/motherb3.jpg')">Save</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="col">
+        <div class="card border-0 shadow-sm position-relative">
+            <img src="/media/board_items/ring3.jpg" class="card-img-top" alt="Platinum Bands">
+            <div class="card-body home-card">
+                <h5 class="card-title tag-data">Platinum Bands</h5>
+                <p class="card-text">Durable and sleek platinum bands for a modern and elegant touch.</p>
+                <button class="btn btn-outline-primary save-btn" onclick="openSaveModal('/media/board_items/ring3.jpg')">Save</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="col">
+        <div class="card border-0 shadow-sm position-relative">
+            <img src="/media/board_items/cake3.jpg" class="card-img-top" alt="Tiered Fondant Cake">
+            <div class="card-body home-card">
+                <h5 class="card-title tag-data">Tiered Fondant Cake</h5>
+                <p class="card-text">Multi-tiered cake with smooth fondant for a luxurious presentation.</p>
+                <button class="btn btn-outline-primary save-btn" onclick="openSaveModal('/media/board_items/cake3.jpg')">Save</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="col">
+        <div class="card border-0 shadow-sm position-relative">
+            <img src="/media/board_items/decoration3.jpg" class="card-img-top" alt="Candles & Lighting">
+            <div class="card-body home-card">
+                <h5 class="card-title tag-data">Candles & Lighting</h5>
+                <p class="card-text">Romantic lighting and candles to create a warm and intimate atmosphere.</p>
+                <button class="btn btn-outline-primary save-btn" onclick="openSaveModal('/media/board_items/decoration3.jpg')">Save</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="col">
+        <div class="card border-0 shadow-sm position-relative">
+            <img src="/media/board_items/photo3.jpg" class="card-img-top" alt="Drone Photography">
+            <div class="card-body home-card">
+                <h5 class="card-title tag-data">Drone Photography</h5>
+                <p class="card-text">Aerial shots capturing the venue, crowd, and scenery from breathtaking angles.</p>
+                <button class="btn btn-outline-primary save-btn" onclick="openSaveModal('/media/board_items/photo3.jpg')">Save</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="col">
+        <div class="card border-0 shadow-sm position-relative">
+            <img src="/media/board_items/makeup3.jpg" class="card-img-top" alt="Bridesmaids Makeup">
+            <div class="card-body home-card">
+                <h5 class="card-title tag-data">Bridesmaids Makeup</h5>
+                <p class="card-text">Coordinated makeup looks that complement the bridesmaids’ dresses and theme.</p>
+                <button class="btn btn-outline-primary save-btn" onclick="openSaveModal('/media/board_items/makeup3.jpg')">Save</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="col">
+        <div class="card border-0 shadow-sm position-relative">
+            <img src="/media/board_items/hair3.jpg" class="card-img-top" alt="Loose Curls">
+            <div class="card-body home-card">
+                <h5 class="card-title tag-data">Loose Curls</h5>
+                <p class="card-text">Soft, flowing curls for a romantic and effortless bridal hairstyle.</p>
+                <button class="btn btn-outline-primary save-btn" onclick="openSaveModal('/media/board_items/hair3.jpg')">Save</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="col">
+        <div class="card border-0 shadow-sm position-relative">
+            <img src="/media/board_items/bridal3.jpg" class="card-img-top" alt="Coordinated Color Palette">
+            <div class="card-body home-card">
+                <h5 class="card-title tag-data">Coordinated Color Palette</h5>
+                <p class="card-text">Use complementary colors for dresses, flowers, and accessories to create harmony.</p>
+                <button class="btn btn-outline-primary save-btn" onclick="openSaveModal('/media/board_items/bridal3.jpg')">Save</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="col">
+        <div class="card border-0 shadow-sm position-relative">
+            <img src="/media/board_items/honey3.jpg" class="card-img-top" alt="City Adventure">
+            <div class="card-body home-card">
+                <h5 class="card-title tag-data">City Adventure</h5>
+                <p class="card-text">Explore bustling cities with cultural attractions, fine dining, and nightlife.</p>
+                <button class="btn btn-outline-primary save-btn" onclick="openSaveModal('/media/board_items/honey3.jpg')">Save</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="col">
+        <div class="card border-0 shadow-sm position-relative">
+            <img src="/media/board_items/invitation3.jpg" class="card-img-top" alt="Minimalist Invitation">
+            <div class="card-body home-card">
+                <h5 class="card-title tag-data">Minimalist Invitation</h5>
+                <p class="card-text">Clean and simple design emphasizing elegance and modern style.</p>
+                <button class="btn btn-outline-primary save-btn" onclick="openSaveModal('/media/board_items/invitation3.jpg')">Save</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="col">
+        <div class="card border-0 shadow-sm position-relative">
+            <img src="/media/board_items/theme3.jpg" class="card-img-top" alt="Bohemian Theme">
+            <div class="card-body home-card">
+                <h5 class="card-title tag-data">Bohemian Theme</h5>
+                <p class="card-text">Relaxed and free-spirited with eclectic decor, floral crowns, and earthy colors.</p>
+                <button class="btn btn-outline-primary save-btn" onclick="openSaveModal('/media/board_items/theme3.jpg')">Save</button>
+            </div>
+        </div>
+    </div>
+
+
+        <!-- Card 4 -->
+        <div class="col">
+            <div class="card border-0 shadow-sm position-relative">
+                <img src="/media/board_items/wedding4.jpg" class="card-img-top" alt="Wedding Inspiration 4">
+                <div class="card-body home-card">
+                    <h5 class="card-title tag-data">Minimalist Chic Wedding</h5>
+                    <p class="card-text">Clean lines and neutral tones.</p>
+                    <button class="btn btn-outline-primary save-btn" 
+                     data-image="/media/board_items/wedding1.jpg"> Save</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="col">
+        <div class="card border-0 shadow-sm position-relative">
+            <img src="/media/board_items/gown4.jpg" class="card-img-top" alt="Sheath">
+            <div class="card-body home-card">
+                <h5 class="card-title tag-data">Sheath</h5>
+                <p class="card-text">Slim, straight cut that flows closely along the body.</p>
+                <button class="btn btn-outline-primary save-btn" onclick="openSaveModal('/media/board_items/gown4.jpg')">Save</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="col">
+        <div class="card border-0 shadow-sm position-relative">
+            <img src="/media/board_items/groom4.jpg" class="card-img-top" alt="Three-Piece Suit">
+            <div class="card-body home-card">
+                <h5 class="card-title tag-data">Three-Piece Suit</h5>
+                <p class="card-text">Includes jacket, trousers, and vest for a polished, formal look.</p>
+                <button class="btn btn-outline-primary save-btn" onclick="openSaveModal('/media/board_items/groom4.jpg')">Save</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="col">
+        <div class="card border-0 shadow-sm position-relative">
+            <img src="/media/board_items/honor4.jpg" class="card-img-top" alt="Lace Dress">
+            <div class="card-body home-card">
+                <h5 class="card-title tag-data">Lace Dress</h5>
+                <p class="card-text">Delicate lace detailing for a classic, timeless look.</p>
+                <button class="btn btn-outline-primary save-btn" onclick="openSaveModal('/media/board_items/honor4.jpg')">Save</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="col">
+        <div class="card border-0 shadow-sm position-relative">
+            <img src="/media/board_items/maid4.jpg" class="card-img-top" alt="Wrap Dress">
+            <div class="card-body home-card">
+                <h5 class="card-title tag-data">Wrap Dress</h5>
+                <p class="card-text">Adjustable wrap style for comfort and flattering fit on every body type.</p>
+                <button class="btn btn-outline-primary save-btn" onclick="openSaveModal('/media/board_items/maid4.jpg')">Save</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="col">
+        <div class="card border-0 shadow-sm position-relative">
+            <img src="/media/board_items/men4.jpg" class="card-img-top" alt="Blazer & Chinos">
+            <div class="card-body home-card">
+                <h5 class="card-title tag-data">Blazer & Chinos</h5>
+                <p class="card-text">Smart casual combination for semi-formal or outdoor weddings.</p>
+                <button class="btn btn-outline-primary save-btn" onclick="openSaveModal('/media/board_items/men4.jpg')">Save</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="col">
+        <div class="card border-0 shadow-sm position-relative">
+            <img src="/media/board_items/flower4.jpg" class="card-img-top" alt="Dress with Sash">
+            <div class="card-body home-card">
+                <h5 class="card-title tag-data">Dress with Sash</h5>
+                <p class="card-text">Adorable dress accented with a colorful sash for a playful touch.</p>
+                <button class="btn btn-outline-primary save-btn" onclick="openSaveModal('/media/board_items/flower4.jpg')">Save</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="col">
+        <div class="card border-0 shadow-sm position-relative">
+            <img src="/media/board_items/boy4.jpg" class="card-img-top" alt="Bow Tie Suit">
+            <div class="card-body home-card">
+                <h5 class="card-title tag-data">Bow Tie Suit</h5>
+                <p class="card-text">Cute suit accented with a bow tie, giving a dapper appearance.</p>
+                <button class="btn btn-outline-primary save-btn" onclick="openSaveModal('/media/board_items/boy4.jpg')">Save</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="col">
+        <div class="card border-0 shadow-sm position-relative">
+            <img src="/media/board_items/motherg4.jpg" class="card-img-top" alt="Cocktail Dress">
+            <div class="card-body home-card">
+                <h5 class="card-title tag-data">Cocktail Dress</h5>
+                <p class="card-text">Shorter dress perfect for a semi-formal or outdoor wedding.</p>
+                <button class="btn btn-outline-primary save-btn" onclick="openSaveModal('/media/board_items/motherg4.jpg')">Save</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="col">
+        <div class="card border-0 shadow-sm position-relative">
+            <img src="/media/board_items/motherb4.jpg" class="card-img-top" alt="Cocktail Dress">
+            <div class="card-body home-card">
+                <h5 class="card-title tag-data">Cocktail Dress</h5>
+                <p class="card-text">Shorter, chic dress suitable for semi-formal or outdoor weddings.</p>
+                <button class="btn btn-outline-primary save-btn" onclick="openSaveModal('/media/board_items/motherb4.jpg')">Save</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="col">
+        <div class="card border-0 shadow-sm position-relative">
+            <img src="/media/board_items/ring4.jpg" class="card-img-top" alt="Rose Gold Rings">
+            <div class="card-body home-card">
+                <h5 class="card-title tag-data">Rose Gold Rings</h5>
+                <p class="card-text">Romantic rose gold bands with a warm, modern look.</p>
+                <button class="btn btn-outline-primary save-btn" onclick="openSaveModal('/media/board_items/ring4.jpg')">Save</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="col">
+        <div class="card border-0 shadow-sm position-relative">
+            <img src="/media/board_items/cake4.jpg" class="card-img-top" alt="Floral Cake">
+            <div class="card-body home-card">
+                <h5 class="card-title tag-data">Floral Cake</h5>
+                <p class="card-text">Decorated with fresh or sugar flowers for a romantic wedding vibe.</p>
+                <button class="btn btn-outline-primary save-btn" onclick="openSaveModal('/media/board_items/cake4.jpg')">Save</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="col">
+        <div class="card border-0 shadow-sm position-relative">
+            <img src="/media/board_items/decoration4.jpg" class="card-img-top" alt="Chair Decorations">
+            <div class="card-body home-card">
+                <h5 class="card-title tag-data">Chair Decorations</h5>
+                <p class="card-text">Beautifully adorned chairs with ribbons, sashes, or floral touches.</p>
+                <button class="btn btn-outline-primary save-btn" onclick="openSaveModal('/media/board_items/decoration4.jpg')">Save</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="col">
+        <div class="card border-0 shadow-sm position-relative">
+            <img src="/media/board_items/photo4.jpg" class="card-img-top" alt="Black & White Photography">
+            <div class="card-body home-card">
+                <h5 class="card-title tag-data">Black & White Photography</h5>
+                <p class="card-text">Timeless black and white shots emphasizing emotion, contrast, and depth.</p>
+                <button class="btn btn-outline-primary save-btn" onclick="openSaveModal('/media/board_items/photo4.jpg')">Save</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="col">
+        <div class="card border-0 shadow-sm position-relative">
+            <img src="/media/board_items/makeup4.jpg" class="card-img-top" alt="Groom & Groomsmen Grooming">
+            <div class="card-body home-card">
+                <h5 class="card-title tag-data">Groom & Groomsmen Grooming</h5>
+                <p class="card-text">Professional grooming services for a polished, confident look for the men.</p>
+                <button class="btn btn-outline-primary save-btn" onclick="openSaveModal('/media/board_items/makeup4.jpg')">Save</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="col">
+        <div class="card border-0 shadow-sm position-relative">
+            <img src="/media/board_items/hair4.jpg" class="card-img-top" alt="Half-Up, Half-Down">
+            <div class="card-body home-card">
+                <h5 class="card-title tag-data">Half-Up, Half-Down</h5>
+                <p class="card-text">Combines elegance and ease, perfect for showcasing accessories or veils.</p>
+                <button class="btn btn-outline-primary save-btn" onclick="openSaveModal('/media/board_items/hair4.jpg')">Save</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="col">
+        <div class="card border-0 shadow-sm position-relative">
+            <img src="/media/board_items/bridal4.jpg" class="card-img-top" alt="Fun Photo Props">
+            <div class="card-body home-card">
+                <h5 class="card-title tag-data">Fun Photo Props</h5>
+                <p class="card-text">Creative props for bridesmaids and groomsmen to make photos lively and memorable.</p>
+                <button class="btn btn-outline-primary save-btn" onclick="openSaveModal('/media/board_items/bridal4.jpg')">Save</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="col">
+        <div class="card border-0 shadow-sm position-relative">
+            <img src="/media/board_items/honey4.jpg" class="card-img-top" alt="Cruise Getaway">
+            <div class="card-body home-card">
+                <h5 class="card-title tag-data">Cruise Getaway</h5>
+                <p class="card-text">Sail through scenic waters with luxury accommodations and endless entertainment.</p>
+                <button class="btn btn-outline-primary save-btn" onclick="openSaveModal('/media/board_items/honey4.jpg')">Save</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="col">
+        <div class="card border-0 shadow-sm position-relative">
+            <img src="/media/board_items/invitation4.jpg" class="card-img-top" alt="Rustic Invitation">
+            <div class="card-body home-card">
+                <h5 class="card-title tag-data">Rustic Invitation</h5>
+                <p class="card-text">Charming rustic design featuring kraft paper, twine, or natural textures.</p>
+                <button class="btn btn-outline-primary save-btn" onclick="openSaveModal('/media/board_items/invitation4.jpg')">Save</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="col">
+        <div class="card border-0 shadow-sm position-relative">
+            <img src="/media/board_items/theme4.jpg" class="card-img-top" alt="Beach Theme">
+            <div class="card-body home-card">
+                <h5 class="card-title tag-data">Beach Theme</h5>
+                <p class="card-text">Light and breezy decorations inspired by the seaside with shells, sand, and blues.</p>
+                <button class="btn btn-outline-primary save-btn" onclick="openSaveModal('/media/board_items/theme4.jpg')">Save</button>
+            </div>
+        </div>
+    </div>
+
+        <!-- Card 5 -->
+        <div class="col">
+            <div class="card border-0 shadow-sm position-relative">
+                <img src="/media/board_items/wedding5.jpg" class="card-img-top" alt="Wedding Inspiration 5">
+                <div class="card-body home-card">
+                    <h5 class="card-title tag-data">Boho Forest Celebration</h5>
+                    <p class="card-text">Earthy tones and wildflowers.</p>
+                    <button class="btn btn-outline-primary save-btn" 
+                     data-image="/media/board_items/wedding1.jpg"> Save</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="col">
+        <div class="card border-0 shadow-sm position-relative">
+            <img src="/media/board_items/gown5.jpg" class="card-img-top" alt="Empire">
+            <div class="card-body home-card">
+                <h5 class="card-title tag-data">Empire</h5>
+                <p class="card-text">High waistline just below the bust, perfect for a romantic flow.</p>
+                <button class="btn btn-outline-primary save-btn" onclick="openSaveModal('/media/board_items/gown5.jpg')">Save</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="col">
+        <div class="card border-0 shadow-sm position-relative">
+            <img src="/media/board_items/groom5.jpg" class="card-img-top" alt="Blazer">
+            <div class="card-body home-card">
+                <h5 class="card-title tag-data">Blazer</h5>
+                <p class="card-text">Smart casual option, perfect for semi-formal or outdoor weddings.</p>
+                <button class="btn btn-outline-primary save-btn" onclick="openSaveModal('/media/board_items/groom5.jpg')">Save</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="col">
+        <div class="card border-0 shadow-sm position-relative">
+            <img src="/media/board_items/honor5.jpg" class="card-img-top" alt="High-Low Dress">
+            <div class="card-body home-card">
+                <h5 class="card-title tag-data">High-Low Dress</h5>
+                <p class="card-text">Trendy high-low hemline, perfect for showing off shoes and movement.</p>
+                <button class="btn btn-outline-primary save-btn" onclick="openSaveModal('/media/board_items/honor5.jpg')">Save</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="col">
+        <div class="card border-0 shadow-sm position-relative">
+            <img src="/media/board_items/maid5.jpg" class="card-img-top" alt="One-Shoulder Dress">
+            <div class="card-body home-card">
+                <h5 class="card-title tag-data">One-Shoulder Dress</h5>
+                <p class="card-text">Chic asymmetrical neckline that’s perfect for modern weddings.</p>
+                <button class="btn btn-outline-primary save-btn" onclick="openSaveModal('/media/board_items/maid5.jpg')">Save</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="col">
+        <div class="card border-0 shadow-sm position-relative">
+            <img src="/media/board_items/men5.jpg" class="card-img-top" alt="Ethnic/Traditional Wear">
+            <div class="card-body home-card">
+                <h5 class="card-title tag-data">Ethnic/Traditional Wear</h5>
+                <p class="card-text">Cultural outfits reflecting tradition and personality for themed weddings.</p>
+                <button class="btn btn-outline-primary save-btn" onclick="openSaveModal('/media/board_items/men5.jpg')">Save</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="col">
+        <div class="card border-0 shadow-sm position-relative">
+            <img src="/media/board_items/flower5.jpg" class="card-img-top" alt="Ruffled Dress">
+            <div class="card-body home-card">
+                <h5 class="card-title tag-data">Ruffled Dress</h5>
+                <p class="card-text">Fun ruffles adding volume and charm to the flower girl’s outfit.</p>
+                <button class="btn btn-outline-primary save-btn" onclick="openSaveModal('/media/board_items/flower5.jpg')">Save</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="col">
+        <div class="card border-0 shadow-sm position-relative">
+            <img src="/media/board_items/boy5.jpg" class="card-img-top" alt="Suspenders & Shirt">
+            <div class="card-body home-card">
+                <h5 class="card-title tag-data">Suspenders & Shirt</h5>
+                <p class="card-text">Playful yet smart outfit with suspenders and a shirt for a charming look.</p>
+                <button class="btn btn-outline-primary save-btn" onclick="openSaveModal('/media/board_items/boy5.jpg')">Save</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="col">
+        <div class="card border-0 shadow-sm position-relative">
+            <img src="/media/board_items/motherg5.jpg" class="card-img-top" alt="Wrap Dress">
+            <div class="card-body home-card">
+                <h5 class="card-title tag-data">Wrap Dress</h5>
+                <p class="card-text">Comfortable and stylish, adjustable fit for a flattering silhouette.</p>
+                <button class="btn btn-outline-primary save-btn" onclick="openSaveModal('/media/board_items/motherg5.jpg')">Save</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="col">
+        <div class="card border-0 shadow-sm position-relative">
+            <img src="/media/board_items/motherb5.jpg" class="card-img-top" alt="Wrap Dress">
+            <div class="card-body home-card">
+                <h5 class="card-title tag-data">Wrap Dress</h5>
+                <p class="card-text">Comfortable and stylish, adjustable fit for a flattering silhouette.</p>
+                <button class="btn btn-outline-primary save-btn" onclick="openSaveModal('/media/board_items/motherb5.jpg')">Save</button>
+            </div>
+        </div>
+    </div>
+
+<div class="col">
+        <div class="card border-0 shadow-sm position-relative">
+            <img src="/media/board_items/ring5.jpg" class="card-img-top" alt="Custom Engraved Rings">
+            <div class="card-body home-card">
+                <h5 class="card-title tag-data">Custom Engraved Rings</h5>
+                <p class="card-text">Personalized rings with special engravings for a meaningful touch.</p>
+                <button class="btn btn-outline-primary save-btn" onclick="openSaveModal('/media/board_items/ring5.jpg')">Save</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="col">
+        <div class="card border-0 shadow-sm position-relative">
+            <img src="/media/board_items/cake5.jpg" class="card-img-top" alt="Drip Cake">
+            <div class="card-body home-card">
+                <h5 class="card-title tag-data">Drip Cake</h5>
+                <p class="card-text">Modern design with chocolate or colored drip for a trendy look.</p>
+                <button class="btn btn-outline-primary save-btn" onclick="openSaveModal('/media/board_items/cake5.jpg')">Save</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="col">
+        <div class="card border-0 shadow-sm position-relative">
+            <img src="/media/board_items/decoration5.jpg" class="card-img-top" alt="Backdrop & Arches">
+            <div class="card-body home-card">
+                <h5 class="card-title tag-data">Backdrop & Arches</h5>
+                <p class="card-text">Decorative backdrops and arches perfect for the ceremony or photo opportunities.</p>
+                <button class="btn btn-outline-primary save-btn" onclick="openSaveModal('/media/board_items/decoration5.jpg')">Save</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="col">
+        <div class="card border-0 shadow-sm position-relative">
+            <img src="/media/board_items/photo5.png" class="card-img-top" alt="Pre-Wedding Shoots">
+            <div class="card-body home-card">
+                <h5 class="card-title tag-data">Pre-Wedding Shoots</h5>
+                <p class="card-text">Beautifully captured moments from engagements or pre-wedding sessions.</p>
+                <button class="btn btn-outline-primary save-btn" onclick="openSaveModal('/media/board_items/photo5.png')">Save</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="col">
+        <div class="card border-0 shadow-sm position-relative">
+            <img src="/media/board_items/makeup5.jpg" class="card-img-top" alt="Hair Styling & Updos">
+            <div class="card-body home-card">
+                <h5 class="card-title tag-data">Hair Styling & Updos</h5>
+                <p class="card-text">Elegant hairstyles, updos, and braids to complement the bridal and bridesmaids’ looks.</p>
+                <button class="btn btn-outline-primary save-btn" onclick="openSaveModal('/media/board_items/makeup5.jpg')">Save</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="col">
+        <div class="card border-0 shadow-sm position-relative">
+            <img src="/media/board_items/hair5.jpg" class="card-img-top" alt="Bohemian Waves">
+            <div class="card-body home-card">
+                <h5 class="card-title tag-data">Bohemian Waves</h5>
+                <p class="card-text">Relaxed wavy styles ideal for outdoor, beach, or boho-themed weddings.</p>
+                <button class="btn btn-outline-primary save-btn" onclick="openSaveModal('/media/board_items/hair5.jpg')">Save</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="col">
+        <div class="card border-0 shadow-sm position-relative">
+            <img src="/media/board_items/bridal5.jpg" class="card-img-top" alt="Themed Outfits">
+            <div class="card-body home-card">
+                <h5 class="card-title tag-data">Themed Outfits</h5>
+                <p class="card-text">Dress the bridal party in themed outfits that match the wedding style or season.</p>
+                <button class="btn btn-outline-primary save-btn" onclick="openSaveModal('/media/board_items/bridal5.jpg')">Save</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="col">
+        <div class="card border-0 shadow-sm position-relative">
+            <img src="/media/board_items/honey5.jpg" class="card-img-top" alt="Safari Adventure">
+            <div class="card-body home-card">
+                <h5 class="card-title tag-data">Safari Adventure</h5>
+                <p class="card-text">Experience thrilling wildlife safaris and luxurious lodges in exotic destinations.</p>
+                <button class="btn btn-outline-primary save-btn" onclick="openSaveModal('/media/board_items/honey5.jpg')">Save</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="col">
+        <div class="card border-0 shadow-sm position-relative">
+            <img src="/media/board_items/invitation5.jpg" class="card-img-top" alt="Luxury Foil Invitation">
+            <div class="card-body home-card">
+                <h5 class="card-title tag-data">Luxury Foil Invitation</h5>
+                <p class="card-text">Opulent invitations with gold or silver foil accents for a glamorous look.</p>
+                <button class="btn btn-outline-primary save-btn" onclick="openSaveModal('/media/board_items/invitation5.jpg')">Save</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="col">
+        <div class="card border-0 shadow-sm position-relative">
+            <img src="/media/board_items/theme5.jpg" class="card-img-top" alt="Garden Theme">
+            <div class="card-body home-card">
+                <h5 class="card-title tag-data">Garden Theme</h5>
+                <p class="card-text">Lush greenery, fresh flowers, and romantic outdoor setups for a dreamy vibe.</p>
+                <button class="btn btn-outline-primary save-btn" onclick="openSaveModal('/media/board_items/theme5.jpg')">Save</button>
+            </div>
+        </div>
+    </div>
+
+        <!-- Card 6 -->
+        <div class="col">
+            <div class="card border-0 shadow-sm position-relative">
+                <img src="/media/board_items/wedding6.jpg" class="card-img-top" alt="Wedding Inspiration 6">
+                <div class="card-body home-card">
+                    <h5 class="card-title tag-data">Classic Church Wedding</h5>
+                    <p class="card-text">Traditional ceremony with pastel bouquets.</p>
+                    <button class="btn btn-outline-primary save-btn" 
+                     data-image="/media/board_items/wedding1.jpg"> Save</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="col">
+        <div class="card border-0 shadow-sm position-relative">
+            <img src="/media/board_items/gown6.jpg" class="card-img-top" alt="Boho">
+            <div class="card-body home-card">
+                <h5 class="card-title tag-data">Boho</h5>
+                <p class="card-text">Relaxed, free-spirited styles with lace, flowy fabrics, and unique details.</p>
+                <button class="btn btn-outline-primary save-btn" onclick="openSaveModal('/media/board_items/gown6.jpg')">Save</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="col">
+        <div class="card border-0 shadow-sm position-relative">
+            <img src="/media/board_items/groom6.jpg" class="card-img-top" alt="Ethnic Wear">
+            <div class="card-body home-card">
+                <h5 class="card-title tag-data">Ethnic Wear</h5>
+                <p class="card-text">Traditional attire reflecting culture and heritage, great for themed weddings.</p>
+                <button class="btn btn-outline-primary save-btn" onclick="openSaveModal('/media/board_items/groom6.jpg')">Save</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="col">
+        <div class="card border-0 shadow-sm position-relative">
+            <img src="/media/board_items/honor6.jpg" class="card-img-top" alt="One-Shoulder Dress">
+            <div class="card-body home-card">
+                <h5 class="card-title tag-data">One-Shoulder Dress</h5>
+                <p class="card-text">Modern one-shoulder style with a chic, asymmetrical neckline.</p>
+                <button class="btn btn-outline-primary save-btn" onclick="openSaveModal('/media/board_items/honor6.jpg')">Save</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="col">
+        <div class="card border-0 shadow-sm position-relative">
+            <img src="/media/board_items/maid6.jpg" class="card-img-top" alt="Short Cocktail Dress">
+            <div class="card-body home-card">
+                <h5 class="card-title tag-data">Short Cocktail Dress</h5>
+                <p class="card-text">Fun and flirty style, ideal for semi-formal or casual weddings.</p>
+                <button class="btn btn-outline-primary save-btn" onclick="openSaveModal('/media/board_items/maid6.jpg')">Save</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="col">
+        <div class="card border-0 shadow-sm position-relative">
+            <img src="/media/board_items/men6.jpg" class="card-img-top" alt="Vest & Shirt Combo">
+            <div class="card-body home-card">
+                <h5 class="card-title tag-data">Vest & Shirt Combo</h5>
+                <p class="card-text">Relaxed yet coordinated look with a vest, shirt, and trousers.</p>
+                <button class="btn btn-outline-primary save-btn" onclick="openSaveModal('/media/board_items/men6.jpg')">Save</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="col">
+        <div class="card border-0 shadow-sm position-relative">
+            <img src="/media/board_items/flower6.jpg" class="card-img-top" alt="Floral Applique Dress">
+            <div class="card-body home-card">
+                <h5 class="card-title tag-data">Floral Applique Dress</h5>
+                <p class="card-text">Cute floral appliques for a whimsical and charming flower girl look.</p>
+                <button class="btn btn-outline-primary save-btn" onclick="openSaveModal('/media/board_items/flower6.jpg')">Save</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="col">
+        <div class="card border-0 shadow-sm position-relative">
+            <img src="/media/board_items/boy6.jpg" class="card-img-top" alt="Casual Dressy Outfit">
+            <div class="card-body home-card">
+                <h5 class="card-title tag-data">Casual Dressy Outfit</h5>
+                <p class="card-text">Comfortable and stylish, perfect for outdoor or informal weddings.</p>
+                <button class="btn btn-outline-primary save-btn" onclick="openSaveModal('/media/board_items/boy6.jpg')">Save</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="col">
+        <div class="card border-0 shadow-sm position-relative">
+            <img src="/media/board_items/motherg6.jpg" class="card-img-top" alt="Embellished Gown">
+            <div class="card-body home-card">
+                <h5 class="card-title tag-data">Embellished Gown</h5>
+                <p class="card-text">Gown with subtle embellishments for a touch of glamour and sophistication.</p>
+                <button class="btn btn-outline-primary save-btn" onclick="openSaveModal('/media/board_items/motherg6.jpg')">Save</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="col">
+        <div class="card border-0 shadow-sm position-relative">
+            <img src="/media/board_items/motherb6.jpg" class="card-img-top" alt="Embellished Gown">
+            <div class="card-body home-card">
+                <h5 class="card-title tag-data">Embellished Gown</h5>
+                <p class="card-text">Gown with subtle embellishments for a touch of elegance and glamour.</p>
+                <button class="btn btn-outline-primary save-btn" onclick="openSaveModal('/media/board_items/motherb6.jpg')">Save</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="col">
+        <div class="card border-0 shadow-sm position-relative">
+            <img src="/media/board_items/ring6.jpg" class="card-img-top" alt="Two-Tone Rings">
+            <div class="card-body home-card">
+                <h5 class="card-title tag-data">Two-Tone Rings</h5>
+                <p class="card-text">Combines different metals for a unique and contemporary style.</p>
+                <button class="btn btn-outline-primary save-btn" onclick="openSaveModal('/media/board_items/ring6.jpg')">Save</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="col">
+        <div class="card border-0 shadow-sm position-relative">
+            <img src="/media/board_items/cake6.jpg" class="card-img-top" alt="Buttercream Textured Cake">
+            <div class="card-body home-card">
+                <h5 class="card-title tag-data">Buttercream Textured Cake</h5>
+                <p class="card-text">Soft textured buttercream finish, offering a romantic and charming style.</p>
+                <button class="btn btn-outline-primary save-btn" onclick="openSaveModal('/media/board_items/cake6.jpg')">Save</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="col">
+        <div class="card border-0 shadow-sm position-relative">
+            <img src="/media/board_items/decoration6.jpg" class="card-img-top" alt="Hanging Decor & Drapes">
+            <div class="card-body home-card">
+                <h5 class="card-title tag-data">Hanging Decor & Drapes</h5>
+                <p class="card-text">Ceiling drapes, hanging florals, and chandeliers to elevate the venue ambiance.</p>
+                <button class="btn btn-outline-primary save-btn" onclick="openSaveModal('/media/board_items/decoration6.jpg')">Save</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="col">
+        <div class="card border-0 shadow-sm position-relative">
+            <img src="/media/board_items/photo6.jpg" class="card-img-top" alt="Wedding Album Shots">
+            <div class="card-body home-card">
+                <h5 class="card-title tag-data">Wedding Album Shots</h5>
+                <p class="card-text">Curated shots designed to create a beautiful and memorable wedding album.</p>
+                <button class="btn btn-outline-primary save-btn" onclick="openSaveModal('/media/board_items/photo6.jpg')">Save</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="col">
+        <div class="card border-0 shadow-sm position-relative">
+            <img src="/media/board_items/makeup6.jpg" class="card-img-top" alt="Skincare & Pre-Wedding Prep">
+            <div class="card-body home-card">
+                <h5 class="card-title tag-data">Skincare & Pre-Wedding Prep</h5>
+                <p class="card-text">Beauty treatments and skincare routines to ensure radiant, healthy skin for the big day.</p>
+                <button class="btn btn-outline-primary save-btn" onclick="openSaveModal('/media/board_items/makeup6.jpg')">Save</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="col">
+        <div class="card border-0 shadow-sm position-relative">
+            <img src="/media/board_items/hair6.jpg" class="card-img-top" alt="Elegant Bun with Accessories">
+            <div class="card-body home-card">
+                <h5 class="card-title tag-data">Elegant Bun with Accessories</h5>
+                <p class="card-text">Chic bun adorned with pins, flowers, or jewelry for a glamorous look.</p>
+                <button class="btn btn-outline-primary save-btn" onclick="openSaveModal('/media/board_items/hair6.jpg')">Save</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="col">
+        <div class="card border-0 shadow-sm position-relative">
+            <img src="/media/board_items/bridal6.jpg" class="card-img-top" alt="Coordinated Hair & Makeup">
+            <div class="card-body home-card">
+                <h5 class="card-title tag-data">Coordinated Hair & Makeup</h5>
+                <p class="card-text">Ensure a polished and cohesive look with matching hairstyles and makeup for the bridal party.</p>
+                <button class="btn btn-outline-primary save-btn" onclick="openSaveModal('/media/board_items/bridal6.jpg')">Save</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="col">
+        <div class="card border-0 shadow-sm position-relative">
+            <img src="/media/board_items/honey6.jpg" class="card-img-top" alt="Wellness Retreat">
+            <div class="card-body home-card">
+                <h5 class="card-title tag-data">Wellness Retreat</h5>
+                <p class="card-text">Rejuvenate together with spa treatments, yoga, and serene surroundings.</p>
+                <button class="btn btn-outline-primary save-btn" onclick="openSaveModal('/media/board_items/honey6.jpg')">Save</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="col">
+        <div class="card border-0 shadow-sm position-relative">
+            <img src="/media/board_items/invitation6.jpg" class="card-img-top" alt="Destination Wedding Invitation">
+            <div class="card-body home-card">
+                <h5 class="card-title tag-data">Destination Wedding Invitation</h5>
+                <p class="card-text">Invitations themed for travel or exotic destination weddings, unique and playful.</p>
+                <button class="btn btn-outline-primary save-btn" onclick="openSaveModal('/media/board_items/invitation6.jpg')">Save</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="col">
+        <div class="card border-0 shadow-sm position-relative">
+            <img src="/media/board_items/theme6.png" class="card-img-top" alt="Vintage Theme">
+            <div class="card-body home-card">
+                <h5 class="card-title tag-data">Vintage Theme</h5>
+                <p class="card-text">Charming retro-inspired decor with antique touches, lace, and soft color palettes.</p>
+                <button class="btn btn-outline-primary save-btn" onclick="openSaveModal('/media/board_items/theme6.png')">Save</button>
+            </div>
+        </div>
+    </div>
+
+    </div>
+</div>
+
+<!-- SUCCESS NOTIFICATION -->
+<div class="save-notification" id="saveNotification">
+    Saved!
+</div>
+
+<div class="custom-modal-overlay" id="customSaveModal">
+    <div class="custom-modal-container">
+        <div class="custom-modal-header">
+            <h5 class="custom-modal-title">Save Image to Board</h5>
+            <button type="button" class="custom-modal-close" id="closeModalBtn">×</button>
+        </div>
+        
+        <form method="POST" action="{% url 'save_image' %}" id="customSaveForm">
+            {% csrf_token %}
+            <div class="custom-modal-body">
+                <input type="hidden" id="customModalImageInput" name="image">
+                
+                <label class="custom-form-label">Choose Board</label>
+                <select class="custom-form-select" name="board_id" id="customBoardSelect" required>
+                    <option value="" disabled selected>Select a board...</option>
+                    {% for board in boards %}
+                        <option value="{{ board.id }}">{{ board.name }} ({{ board.category }})</option>
+                    {% endfor %}
+                </select>
+                
+                {% if not boards %}
+                <div class="custom-alert">
+                    No boards available. <a href="{% url 'dashboard' %}">Create a board first</a>.
+                </div>
+                {% endif %}
+            </div>
+            
+            <div class="custom-modal-footer">
+                <button type="button" class="custom-btn custom-btn-secondary" id="cancelBtn">Cancel</button>
+                <button type="submit" class="custom-btn custom-btn-primary">Save to Board</button>
+            </div>
+            
+        </form>
+    </div>
+</div>
+
+<!-- JS for Save button hover effect -->
+<script>
+    console.log('✅ Script loaded');
+
+// Simple modal functions - globally accessible
+function openSaveModal(imagePath) {
+    console.log('🔓 Opening modal with:', imagePath);
+    
+    const modal = document.getElementById('customSaveModal');
+    const input = document.getElementById('customModalImageInput');
+    
+    if (!modal || !input) {
+        alert('Error: Modal elements not found');
+        return;
+    }
+    
+    input.value = imagePath;
+    modal.classList.add('active'); // ✅ Shows modal centered
+    document.body.classList.add('modal-active'); // ✅ Prevents background scroll
+    
+    console.log('✅ Modal opened');
+}
+
+function closeSaveModal() {
+    console.log('🔒 Closing modal');
+    
+    const modal = document.getElementById('customSaveModal');
+    const select = document.getElementById('customBoardSelect');
+    
+    if (modal) {
+        modal.classList.remove('active'); // ✅ Hides modal
+    }
+    
+    document.body.classList.remove('modal-active'); // ✅ Restores scroll
+    
+    if (select) {
+        select.value = '';
+    }
+    
+    console.log('✅ Modal closed');
+}
+
+// ✅ Show "Saved!" notification
+function showSavedNotification() {
+    console.log('🎉 Showing saved notification');
+    
+    const notification = document.getElementById('saveNotification');
+    
+    if (!notification) {
+        console.error('Notification element not found');
+        return;
+    }
+    
+    // Show notification
+    notification.classList.add('show');
+    
+    // Hide after 3 seconds
+    setTimeout(() => {
+        notification.classList.add('hiding');
+        setTimeout(() => {
+            notification.classList.remove('show', 'hiding');
+        }, 400);
+    }, 3000);
+}
+
+// Initialize when page loads
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('✅ DOM ready');
+    
+    // Get elements
+    const closeBtn = document.getElementById('closeModalBtn');
+    const cancelBtn = document.getElementById('cancelBtn');
+    const modal = document.getElementById('customSaveModal');
+    const saveForm = document.getElementById('customSaveForm'); // ✅ Get form element
+    
+    // Attach close button handlers
+    if (closeBtn) {
+        closeBtn.onclick = closeSaveModal;
+        console.log('✅ Close button attached');
+    }
+    
+    if (cancelBtn) {
+        cancelBtn.onclick = closeSaveModal;
+        console.log('✅ Cancel button attached');
+    }
+    
+    // Click outside to close
+    if (modal) {
+        modal.onclick = function(e) {
+            if (e.target === modal) {
+                closeSaveModal();
+            }
+        };
+        console.log('✅ Click outside handler attached');
+    }
+    
+    // ✅ FORM SUBMIT HANDLER - Close modal and show "Saved!"
+    saveForm.addEventListener('submit', function(e) {
+    const boardId = document.getElementById('customBoardSelect').value;
+    const imagePath = document.getElementById('customModalImageInput').value;
+
+    if (!boardId) {
+        e.preventDefault(); // stop form from submitting
+        alert('Please select a board before saving!');
+        return;
+    }
+
+    if (!imagePath) {
+        e.preventDefault();
+        alert('No image selected!');
+        return;
+    }
+
+    console.log('✅ Form valid, submitting...');
+});
+    
+    // Hover effects for save buttons
+    const saveButtons = document.querySelectorAll('.save-btn');
+    saveButtons.forEach(btn => {
+        btn.addEventListener('mouseenter', function() {
+            const text = this.textContent.trim();
+            if (text === 'Save') {
+                this.textContent = 'Save to Board';
+            }
+        });
+        
+        btn.addEventListener('mouseleave', function() {
+            const text = this.textContent.trim();
+            if (text === 'Save to Board') {
+                this.textContent = 'Save';
+            }
+        });
+    });
+    console.log('✅ Hover effects attached to', saveButtons.length, 'buttons');
+    
+    // ESC key to close
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && modal.classList.contains('active')) {
+            closeSaveModal();
+        }
+    });
+    
+    console.log('✅ All handlers ready!');
+});
+
+// Search functionality
+const urlParams = new URLSearchParams(window.location.search);
+const query = urlParams.get('q');
+
+if (query) {
+    window.addEventListener('load', function() {
+        document.querySelectorAll('.home-card').forEach(card => {
+            const tags = card.querySelector('.tag-data');
+            if (tags && !tags.innerText.toLowerCase().includes(query.toLowerCase())) {
+                card.closest('.col').style.display = 'none';
+            }
+        });
+    });
+}
+</script>
+{% endblock %}

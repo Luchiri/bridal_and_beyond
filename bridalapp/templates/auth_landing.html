@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Bridal & Beyond — Login / Register</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(135deg, #FFFBF5 0%, #FFF5EB 100%);
+            font-family: 'Montserrat', sans-serif;
+            overflow-x: hidden;
+        }
+
+        .hero-section {
+            background: linear-gradient(rgba(165,107,111,0.4), rgba(78,59,49,0.6)), 
+                        url('https://images.unsplash.com/photo-1519741497674-611481863552?w=1200') center/cover no-repeat;
+            height: 100vh;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 30% 50%, rgba(165,107,111,0.3), transparent 70%);
+            animation: pulse 8s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 0.8; }
+        }
+
+        .hero-overlay {
+            height: 100%;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-text {
+            color: #FFFFFF;
+            text-align: center;
+            animation: fadeInUp 1.2s ease-out;
+        }
+
+        .hero-text h1 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 4.5rem;
+            font-weight: 300;
+            letter-spacing: 4px;
+            margin-bottom: 15px;
+            text-shadow: 0 4px 20px rgba(0,0,0,0.3);
+        }
+
+        .hero-text .tagline {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 300;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            opacity: 0.95;
+        }
+
+        .hero-text .decorative-line {
+            width: 80px;
+            height: 1px;
+            background: rgba(255,255,255,0.6);
+            margin: 25px auto;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .auth-section {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 50px 20px;
+        }
+
+        .auth-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 24px;
+            padding: 50px 45px;
+            box-shadow: 0 20px 60px rgba(165,107,111,0.15);
+            border: 1px solid rgba(165,107,111,0.1);
+            max-width: 480px;
+            width: 100%;
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .auth-card h2 {
+            font-family: 'Cormorant Garamond', serif;
+            color: #4E3B31;
+            font-size: 2rem;
+            font-weight: 500;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        .auth-card .subtitle {
+            color: #A56B6F;
+            font-size: 0.9rem;
+            text-align: center;
+            margin-bottom: 35px;
+            font-weight: 400;
+        }
+
+        .nav-tabs {
+            border: none;
+            margin-bottom: 35px;
+            gap: 15px;
+        }
+
+        .nav-tabs .nav-link {
+            border: none;
+            color: #8B7065;
+            font-weight: 500;
+            font-size: 0.95rem;
+            padding: 12px 28px;
+            border-radius: 50px;
+            background: transparent;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-tabs .nav-link:hover {
+            color: #A56B6F;
+            background: rgba(165,107,111,0.08);
+        }
+
+        .nav-tabs .nav-link.active {
+            background: linear-gradient(135deg, #A56B6F 0%, #8B5E61 100%);
+            color: #FFFFFF !important;
+            box-shadow: 0 4px 15px rgba(165,107,111,0.3);
+        }
+
+        .form-label {
+            color: #4E3B31;
+            font-weight: 500;
+            font-size: 0.88rem;
+            margin-bottom: 8px;
+            letter-spacing: 0.3px;
+        }
+
+        .form-control {
+            border: 2px solid #E8DDD5;
+            border-radius: 12px;
+            padding: 14px 18px;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            background: #FEFDFB;
+        }
+
+        .form-control:focus {
+            border-color: #A56B6F;
+            box-shadow: 0 0 0 4px rgba(165,107,111,0.1);
+            background: #FFFFFF;
+        }
+
+        .btn-custom {
+            background: linear-gradient(135deg, #A56B6F 0%, #8B5E61 100%);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            padding: 15px;
+            font-weight: 600;
+            font-size: 1rem;
+            letter-spacing: 0.5px;
+            transition: all 0.4s ease;
+            box-shadow: 0 6px 20px rgba(165,107,111,0.25);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-custom::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.6s ease;
+        }
+
+        .btn-custom:hover::before {
+            left: 100%;
+        }
+
+        .btn-custom:hover {
+            background: linear-gradient(135deg, #4E3B31 0%, #3D2E26 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(78,59,49,0.3);
+        }
+
+        .btn-custom:active {
+            transform: translateY(0);
+        }
+
+        .why-register {
+            background: linear-gradient(135deg, #FFF9F4 0%, #FFF5EB 100%);
+            border-left: 3px solid #A56B6F;
+            padding: 22px 25px;
+            border-radius: 14px;
+            margin-top: 30px;
+            box-shadow: 0 4px 15px rgba(165,107,111,0.08);
+        }
+
+        .why-register h6 {
+            font-family: 'Cormorant Garamond', serif;
+            color: #4E3B31;
+            font-size: 1.15rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        .why-register ul {
+            list-style: none;
+            padding-left: 0;
+            margin-bottom: 0;
+        }
+
+        .why-register li {
+            color: #6B5750;
+            font-size: 0.9rem;
+            padding: 6px 0;
+            padding-left: 25px;
+            position: relative;
+        }
+
+        .why-register li::before {
+            content: '✦';
+            position: absolute;
+            left: 0;
+            color: #A56B6F;
+            font-size: 0.8rem;
+        }
+
+        .divider {
+            display: flex;
+            align-items: center;
+            text-align: center;
+            margin: 25px 0;
+        }
+
+        .divider::before,
+        .divider::after {
+            content: '';
+            flex: 1;
+            border-bottom: 1px solid #E8DDD5;
+        }
+
+        .divider span {
+            padding: 0 15px;
+            color: #A56B6F;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        /* Mobile responsiveness */
+        @media (max-width: 768px) {
+            .hero-text h1 {
+                font-size: 2.8rem;
+            }
+            
+            .hero-text .tagline {
+                font-size: 0.9rem;
+            }
+
+            .auth-card {
+                padding: 35px 25px;
+            }
+
+            .auth-card h2 {
+                font-size: 1.6rem;
+            }
+        }
+
+        /* Floating animation for decorative elements */
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container-fluid p-0">
+    <div class="row g-0">
+        
+        <!-- Hero Section -->
+        <div class="col-lg-6 d-none d-lg-block">
+            <div class="hero-section">
+                <div class="hero-overlay">
+                    <div class="hero-text">
+                        <h1>Bridal & Beyond</h1>
+                        <div class="decorative-line"></div>
+                        <p class="tagline">Inspiration for Every Wedding Role</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Authentication Section -->
+        <div class="col-lg-6">
+            <div class="auth-section">
+                <div class="auth-card">
+
+                    <!-- Logo for mobile -->
+                    <div class="d-lg-none text-center mb-4">
+                        <h2 style="font-size: 2.2rem; margin-bottom: 5px;">Bridal & Beyond</h2>
+                        <p class="subtitle" style="margin-bottom: 25px;">Inspiration for Every Wedding Role</p>
+                    </div>
+
+                    <!-- Tabs -->
+                    <ul class="nav nav-tabs justify-content-center" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" data-bs-toggle="tab" href="#login">Sign In</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-bs-toggle="tab" href="#register">Create Account</a>
+                        </li>
+                    </ul>
+
+                    <!-- Tab Content -->
+                    <div class="tab-content">
+
+                        <!-- Login -->
+                        <div id="login" class="tab-pane fade show active">
+                            <h2 class="d-none d-lg-block">Welcome Back</h2>
+                            <p class="subtitle d-none d-lg-block">Sign in to continue your journey</p>
+
+                            <form method="POST" action="{% url 'login' %}">
+                                {% csrf_token %}
+                                <div class="mb-3">
+                                    <input type="hidden" name="next" value="{{ next }}">
+                                    <label class="form-label">Username</label>
+                                    <input type="text" name="username" class="form-control" placeholder="username" required>
+                                </div>
+
+                                <div class="mb-4">
+                                    <label class="form-label">Password</label>
+                                    <input type="password" name="password" class="form-control" placeholder="Enter your password" required>
+                                </div>
+
+                                <button type="submit" class="btn btn-custom w-100">Sign In</button>
+                            </form>
+
+                            <div class="divider">
+                                <span>New here?</span>
+                            </div>
+
+                            <p class="text-center mb-0" style="font-size: 0.9rem; color: #6B5750;">
+                                <a href="#register" data-bs-toggle="tab" style="color: #A56B6F; text-decoration: none; font-weight: 500;">Create an account</a> to unlock exclusive features
+                            </p>
+                        </div>
+
+                        <!-- Register -->
+                        <div id="register" class="tab-pane fade">
+                            <h2 class="d-none d-lg-block">Join Us</h2>
+                            <p class="subtitle d-none d-lg-block">Create your account in seconds</p>
+
+                                <form method="POST" action="{% url 'register' %}">
+                                    {% csrf_token %}
+                                <div class="mb-3">
+                                    <label class="form-label">Full Name</label>
+                                    <input type="text" name="name" class="form-control" placeholder="Kate Luchiri" required>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label class="form-label">Username</label>
+                                    <input type="text" name="username" class="form-control" placeholder="your username" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Email Address</label>
+                                    <input type="email" name="email" class="form-control" placeholder="you@example.com" required>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label class="form-label">Password</label>
+                                    <input type="password" name="password1" class="form-control" placeholder="Create a strong password" required>
+                                </div>
+
+                                <div class="mb-4">
+                                    <label class="form-label">Confirm Password</label>
+                                    <input type="password" name="password2" class="form-control" placeholder="Confirm your password" required>
+                                </div>
+
+                                <button type="submit" class="btn btn-custom w-100">Create Account</button>
+                            </form>
+
+                            <div class="why-register">
+                                <h6>Why Join Bridal & Beyond?</h6>
+                                <ul>
+                                    <li>Save and organize your inspiration boards</li>
+                                    <li>Access premium outfit and color guides</li>
+                                    <li>Get exclusive curated wedding content</li>
+                                    <li>Connect with wedding professionals</li>
+                                </ul>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>

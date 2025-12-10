@@ -1,0 +1,282 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Blog / Tips{% endblock %}
+
+{% block content %}
+<style>
+    /* ===== ELEGANT BLOG STYLING ===== */
+
+/* Container Background */
+.container.py-5 {
+    background: linear-gradient(135deg, #FFFDF8 0%, #F3E9E3 100%);
+    border-radius: 20px;
+    padding: 4rem 2rem !important;
+    box-shadow: 0 10px 40px rgba(78, 59, 49, 0.08);
+}
+
+/* Heading Styles */
+.container h2 {
+    font-family: 'Playfair Display', 'Georgia', serif;
+    color: #4E3B31;
+    font-weight: 700;
+    font-size: 3rem;
+    letter-spacing: -0.5px;
+    position: relative;
+    display: inline-block;
+}
+
+.container h2::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 0;
+    width: 80px;
+    height: 4px;
+    background: linear-gradient(90deg, #A56B6F, #A56B6F80);
+    border-radius: 2px;
+}
+
+.text-muted {
+    color: #4E3B31 !important;
+    opacity: 0.7;
+    font-size: 1.1rem;
+    font-weight: 300;
+    letter-spacing: 0.3px;
+}
+
+/* Card Styles */
+.card {
+    border-radius: 16px !important;
+    overflow: hidden;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    background: #FFFDF8 !important;
+    box-shadow: 0 4px 20px rgba(78, 59, 49, 0.08) !important;
+}
+
+.card:hover {
+    transform: translateY(-12px);
+    box-shadow: 0 20px 50px rgba(165, 107, 111, 0.25) !important;
+}
+
+/* Card Image */
+.card-img-top {
+    height: 240px;
+    object-fit: cover;
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    filter: brightness(0.95);
+}
+
+.card:hover .card-img-top {
+    transform: scale(1.08);
+    filter: brightness(1);
+}
+
+/* Card Body */
+.card-body {
+    padding: 1.75rem 1.5rem;
+    background: #FFFDF8;
+}
+
+.card-title {
+    font-family: 'Playfair Display', 'Georgia', serif;
+    color: #4E3B31;
+    font-weight: 600;
+    font-size: 1.35rem;
+    line-height: 1.4;
+    margin-bottom: 1rem;
+    transition: color 0.3s ease;
+}
+
+.card:hover .card-title {
+    color: #A56B6F;
+}
+
+.card-text {
+    color: #4E3B31;
+    opacity: 0.8;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    font-weight: 300;
+}
+
+/* Card Footer */
+.card-footer {
+    padding: 1.25rem 1.5rem !important;
+    background: linear-gradient(180deg, #FFFDF8 0%, #F3E9E3 100%) !important;
+    border-top: 1px solid rgba(165, 107, 111, 0.1) !important;
+}
+
+.card-footer small {
+    color: #A56B6F !important;
+    font-weight: 500;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Button Styles */
+.btn-outline-primary {
+    color: #A56B6F !important;
+    border-color: #A56B6F !important;
+    border-width: 2px !important;
+    border-radius: 25px !important;
+    padding: 0.4rem 1.5rem !important;
+    font-weight: 500;
+    font-size: 0.85rem;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+}
+
+.btn-outline-primary:hover {
+    background: #A56B6F !important;
+    border-color: #A56B6F !important;
+    color: #FFFDF8 !important;
+    transform: translateX(3px);
+    box-shadow: 0 4px 15px rgba(165, 107, 111, 0.3);
+}
+
+/* Responsive Grid Gaps */
+.g-4 {
+    --bs-gutter-y: 2.5rem;
+    --bs-gutter-x: 2rem;
+}
+
+/* Add subtle animation on page load */
+.col {
+    animation: fadeInUp 0.6s ease-out backwards;
+}
+
+.col:nth-child(1) { animation-delay: 0.1s; }
+.col:nth-child(2) { animation-delay: 0.2s; }
+.col:nth-child(3) { animation-delay: 0.3s; }
+.col:nth-child(4) { animation-delay: 0.4s; }
+.col:nth-child(5) { animation-delay: 0.5s; }
+.col:nth-child(6) { animation-delay: 0.6s; }
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .container h2 {
+        font-size: 2.2rem;
+    }
+    
+    .container.py-5 {
+        padding: 3rem 1.5rem !important;
+    }
+    
+    .card-img-top {
+        height: 200px;
+    }
+}
+
+/* Optional: Add Google Fonts to your base.html head section */
+/* <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet"> */
+</style>
+<div class="container py-5">
+    <h2 class="mb-4">Wedding Tips & Ideas</h2>
+    <p class="mb-5 text-muted">Read expert advice, latest trends, and creative inspiration for your big day</p>
+
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4">
+        <!-- Blog Card 1 -->
+        <div class="col">
+            <div class="card border-0 shadow-sm h-100">
+                <img src="{% static 'images/blog1.webp' %}" class="card-img-top" alt="Blog 1">
+                <div class="card-body">
+                    <h5 class="card-title">Top 10 Wedding Dress Styles for 2025</h5>
+                    <p class="card-text">Discover elegant styles that will make your bridal look unforgettable in 2025.</p>
+                </div>
+                <div class="card-footer bg-white border-0">
+                    <small class="text-muted">Category: Bridal</small>
+                    <a href="https://www.essensedesigns.com/blog/2025-wedding-dress-trends-every-modern-bride-should-know/" class="btn btn-sm btn-outline-primary float-end" target="_blank" rel="noopener">Read More</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Blog Card 2 -->
+        <div class="col">
+            <div class="card border-0 shadow-sm h-100">
+                <img src="{% static 'images/blog2.jpg' %}" class="card-img-top" alt="Blog 2">
+                <div class="card-body">
+                    <h5 class="card-title">How to Choose the Perfect Color Palette</h5>
+                    <p class="card-text">Learn to combine colors beautifully for your wedding decor, bridal party, and more.</p>
+                </div>
+                <div class="card-footer bg-white border-0">
+                    <small class="text-muted">Category: Planning</small>
+                    <a href="https://unionmillspublichouse.com/tips-for-choosing-your-wedding-color-palette" class="btn btn-sm btn-outline-primary float-end" target="_blank" rel="noopener">Read More</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Blog Card 3 -->
+        <div class="col">
+            <div class="card border-0 shadow-sm h-100">
+                <img src="{% static 'images/blog3.avif' %}" class="card-img-top" alt="Blog 3">
+                <div class="card-body">
+                    <h5 class="card-title">Budget-Friendly Wedding Tips</h5>
+                    <p class="card-text">Creative ways to plan a beautiful wedding without overspending.</p>
+                </div>
+                <div class="card-footer bg-white border-0">
+                    <small class="text-muted">Category: Budget</small>
+                    <a href="https://www.ajcphotography.org/post/how-to-plan-a-beautiful-wedding-on-a-tight-budget-tips-and-tricks" class="btn btn-sm btn-outline-primary float-end" target="_blank" rel="noopener">Read More</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Blog Card 4 -->
+        <div class="col">
+            <div class="card border-0 shadow-sm h-100">
+                <img src="{% static 'images/blog4.webp' %}" class="card-img-top" alt="Blog 4">
+                <div class="card-body">
+                    <h5 class="card-title">Top Wedding Photography Trends</h5>
+                    <p class="card-text">Stay on trend with photography ideas that capture every perfect moment.</p>
+                </div>
+                <div class="card-footer bg-white border-0">
+                    <small class="text-muted">Category: Photography</small>
+                    <a href="https://www.theknot.com/content/wedding-photography-trends" class="btn btn-sm btn-outline-primary float-end" target="_blank" rel="noopener">Read More</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Blog Card 5 -->
+        <div class="col">
+            <div class="card border-0 shadow-sm h-100">
+                <img src="{% static 'images/blog5.webp' %}" class="card-img-top" alt="Blog 5">
+                <div class="card-body">
+                    <h5 class="card-title">Bridal Makeup Trends for Every Season</h5>
+                    <p class="card-text">Soft glam, bold looks, and seasonal makeup ideas for your big day.</p>
+                </div>
+                <div class="card-footer bg-white border-0">
+                    <small class="text-muted">Category: Makeup</small>
+                    <a href="https://www.theknot.com/content/wedding-makeup-trends" class="btn btn-sm btn-outline-primary float-end" target="_blank" rel="noopener">Read More</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Blog Card 6 -->
+        <div class="col">
+            <div class="card border-0 shadow-sm h-100">
+                <img src="{% static 'images/blog6.webp' %}" class="card-img-top" alt="Blog 6">
+                <div class="card-body">
+                    <h5 class="card-title">Creative Wedding Invitation Ideas</h5>
+                    <p class="card-text">From minimalist to luxe, find invitation styles that wow your guests.</p>
+                </div>
+                <div class="card-footer bg-white border-0">
+                    <small class="text-muted">Category: Invitations</small>
+                    <a href="https://www.theknot.com/content/stationery-ideas-youll-love" class="btn btn-sm btn-outline-primary float-end" target="_blank" rel="noopener">Read More</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
