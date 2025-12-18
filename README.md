@@ -14,8 +14,3 @@ Bridal and Beyond is a Django-based web application that allows users to create 
 - Django 5
 - HTML, CSS, JavaScript
 - SQLite (default database)
-
-## Installation
-1. Clone the repository
-```bash
-git clone https://github.com/luchiri/bridal_and_beyond.git
